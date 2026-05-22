@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tyler Le | UI/UX Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#hero">TL<span class="dot">.</span></a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list text-white fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#work">How I Work</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cases">Case Studies</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section id="hero" class="hero-section d-flex align-items-center">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container position-relative">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10">
+          <h1 class="hero-title mb-5">
+            Hi, I'm<br />
+            <span class="gradient-text">Tyler Le</span>
+          </h1>
+          <p class="hero-desc mb-5">
+            Software engineering student at uOttawa. Hackathon winner, co-op developer, and builder of things that actually feel good to use.
+          </p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#cases" class="btn-glow">View My Work</a>
+            <a href="#about" class="btn-ghost">About Me</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="hero-stats row g-4 mt-5">
+        <div class="col-auto">
+          <div class="stat-item">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Projects This Semester</div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="stat-item">
+            <div class="stat-number">SEG3125</div>
+            <div class="stat-label">UI/UX Design Course</div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="stat-item">
+            <div class="stat-number">uOttawa</div>
+            <div class="stat-label">University of Ottawa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <i class="bi bi-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about" class="py-section about-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Photo -->
+        <div class="col-lg-4 text-center">
+          <div class="profile-ring mx-auto">
+            <img
+              src="images/profile.jpg"
+              alt="Tyler Le"
+              class="profile-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="profile-placeholder" style="display:none;">TL</div>
+          </div>
+          <div class="mt-4 d-flex justify-content-center gap-2">
+            <span class="dot-deco"></span>
+            <span class="dot-deco active"></span>
+            <span class="dot-deco"></span>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="col-lg-8">
+          <p class="overline mb-2">About Me</p>
+          <h2 class="section-title mb-4">Who I Am</h2>
+          <p class="mb-3">
+            I'm Tyler Le, a software engineering co-op student at the University of Ottawa. I've shipped full-stack apps at federal government agencies (ISED, Global Affairs Canada), won hackathons with React &amp; Supabase projects, and taught kids robotics, all before finishing second year.
+          </p>
+          <p class="mb-5">
+            I thrive at the intersection of engineering precision and creative problem-solving. Whether I'm automating 15+ end-to-end test scripts or sketching out a user flow, I bring the same mindset: build things that actually work <em>and</em> feel good to use.
+          </p>
+
+          <!-- Interests -->
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <span class="chip"><i class="bi bi-code-slash"></i>Software &amp; Coding</span>
+            <span class="chip"><i class="bi bi-controller"></i>Gaming</span>
+            <span class="chip"><i class="bi bi-trophy"></i>Sports &amp; Fitness</span>
+          </div>
+
+          <!-- Info row -->
+          <div class="row g-3">
+            <div class="col-auto">
+              <div class="info-pill"><i class="bi bi-geo-alt me-2"></i>Ottawa, Ontario</div>
+            </div>
+            <div class="col-auto">
+              <div class="info-pill"><i class="bi bi-mortarboard me-2"></i>Software Engineering, CO-OP</div>
+            </div>
+            <div class="col-auto">
+              <div class="info-pill"><i class="bi bi-award me-2"></i>uOttaHack 8 Winner</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How I Work ===== -->
+  <section id="work" class="py-section work-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="overline mb-2">Process</p>
+        <h2 class="section-title mb-3">How I Work</h2>
+        <p class="text-center" style="max-width: 500px; margin: 0 auto;">
+          Currently building my foundation in UI/UX design. Here's my approach and the resources guiding me.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="work-card h-100 fade-in">
+            <div class="icon-box"><i class="bi bi-journal-code"></i></div>
+            <h5>Currently Learning</h5>
+            <p class="small">
+              Enrolled in <strong>SEG3125: UI/UX Design</strong> at the University of Ottawa. Exploring user-centered design, visual communication, and interactive prototyping, and applying it to real designs throughout the semester.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="work-card h-100 fade-in">
+            <div class="icon-box"><i class="bi bi-briefcase"></i></div>
+            <h5>Real-World Experience</h5>
+            <p class="small">
+              Co-op developer at <strong>ISED</strong> and <strong>Global Affairs Canada</strong>. Built Playwright/JS automation suites, managed Git workflows, and shipped across Agile sprints. Also a two-time hackathon builder (uOttaHack 7 &amp; 8).
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="work-card h-100 fade-in">
+            <div class="icon-box"><i class="bi bi-tools"></i></div>
+            <h5>My Toolkit</h5>
+            <p class="small">
+              React, TypeScript, Node.js, Playwright, Tailwind CSS for front-end &amp; testing. HTML/CSS/JS/Bootstrap 5 for UI work. Git, Jira, and Agile from co-op. Currently adding UI/UX design to the stack via
+              <a href="https://www.nngroup.com" class="link-accent" target="_blank" rel="noopener">NN/g</a> principles.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources strip -->
+      <div class="resources-strip mt-5">
+        <p class="small text-center mb-3" style="color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-size: 0.72rem;">Learning Resources</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a href="https://www.w3schools.com" class="resource-link" target="_blank" rel="noopener">W3Schools</a>
+          <a href="https://www.nngroup.com" class="resource-link" target="_blank" rel="noopener">Nielsen Norman Group</a>
+          <a href="https://www.w3schools.com/bootstrap5" class="resource-link" target="_blank" rel="noopener">Bootstrap 5</a>
+          <a href="https://www.interaction-design.org" class="resource-link" target="_blank" rel="noopener">Interaction Design Foundation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Case Studies ===== -->
+  <section id="cases" class="py-section cases-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="overline mb-2">Portfolio</p>
+        <h2 class="section-title mb-3">Case Studies</h2>
+        <p style="max-width: 480px; margin: 0 auto;">
+          Four design projects I'll be completing throughout the semester. Each one is a work in progress.
+        </p>
+        <div class="wip-notice mt-3">
+          <i class="bi bi-clock-history me-2"></i>All projects are currently in progress. Check back as the semester continues.
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Design 1: Tech Repair Shop -->
+        <div class="col-md-6">
+          <a href="coming-soon/design1.html" class="case-link">
+            <div class="case-card fade-in">
+              <span class="case-num">01</span>
+              <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
+              <div class="case-icon"><i class="bi bi-cpu"></i></div>
+              <span class="case-badge">Service Site</span>
+              <h4>Tech Repair Shop</h4>
+              <p>A service website for a tech repair business. Intuitive appointment booking, service listings, and a seamless client experience.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Design 2: Memory Game -->
+        <div class="col-md-6">
+          <a href="coming-soon/design2.html" class="case-link">
+            <div class="case-card fade-in">
+              <span class="case-num">02</span>
+              <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
+              <div class="case-icon"><i class="bi bi-grid-3x3-gap"></i></div>
+              <span class="case-badge">Interactive Game</span>
+              <h4>Memory Match Game</h4>
+              <p>A browser-based memory card game designed for engagement, smooth feedback loops, and delightful micro-interactions.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Design 3: E-commerce -->
+        <div class="col-md-6">
+          <a href="coming-soon/design3.html" class="case-link">
+            <div class="case-card fade-in">
+              <span class="case-num">03</span>
+              <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
+              <div class="case-icon"><i class="bi bi-bag-heart"></i></div>
+              <span class="case-badge">E-Commerce</span>
+              <h4>Online Store</h4>
+              <p>A full e-commerce experience. Product discovery, cart UX, and a frictionless checkout flow built around user trust.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Design 4: Finance Dashboard -->
+        <div class="col-md-6">
+          <a href="coming-soon/design4.html" class="case-link">
+            <div class="case-card fade-in">
+              <span class="case-num">04</span>
+              <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
+              <div class="case-icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <span class="case-badge">Analytics</span>
+              <h4>Finance Dashboard</h4>
+              <p>A data visualization dashboard for financial insights. Charts, KPIs, and meaningful visual storytelling at a glance.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <span class="footer-brand">TL<span class="dot">.</span></span>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p class="small mb-0" style="color: var(--text-muted);">
+            &copy; 2026 Tyler Le &nbsp;&middot;&nbsp; 300401351 &nbsp;&middot;&nbsp; SEG3125 &nbsp;&middot;&nbsp; University of Ottawa
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

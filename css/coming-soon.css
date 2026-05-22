@@ -1,0 +1,153 @@
+/* ===================================================
+   Tyler Le — SEG3125  |  Coming Soon shared styles
+   =================================================== */
+
+:root {
+  --bg:       #07071a;
+  --surface:  #0f0f28;
+  --accent:   #00c8ff;
+  --accent-2: #7b61ff;
+  --gradient: linear-gradient(135deg, #00c8ff 0%, #7b61ff 100%);
+  --text:     #eeeeff;
+  --muted:    #7070a0;
+  --border:   rgba(255, 255, 255, 0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.15;
+}
+
+/* Ambient background */
+.cs-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 20%, rgba(123,97,255,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 85%, rgba(0,200,255,0.13) 0%, transparent 60%);
+}
+
+/* Wrapper */
+.cs-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Icon */
+.cs-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 12px 35px rgba(123,97,255,0.3);
+}
+
+/* Tag */
+.cs-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  background: rgba(123,97,255,0.12);
+  border: 1px solid rgba(123,97,255,0.25);
+  border-radius: 50px;
+  padding: 0.25rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Title */
+.cs-title {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #eeeeff, #9090cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Description */
+.cs-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.75;
+}
+
+/* Coming soon badge */
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(0,200,255,0.08);
+  border: 1px solid rgba(0,200,255,0.22);
+  padding: 0.45rem 1.25rem;
+  border-radius: 50px;
+}
+
+/* Back link */
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.cs-back:hover { color: var(--accent); border-color: rgba(0,200,255,0.3); }
+
+/* Animated dots below title */
+.cs-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 1.25rem 0;
+}
+
+.cs-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+
+.cs-dot:nth-child(2) { animation-delay: 0.2s; }
+.cs-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 100% { background: var(--border); transform: scale(1); }
+  50%       { background: var(--accent); transform: scale(1.4); }
+}
