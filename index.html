@@ -6,7 +6,7 @@
   <title>Tyler Le | UI/UX Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
@@ -16,7 +16,18 @@
   <!-- ===== Navbar ===== -->
   <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="#hero">TL<span class="dot">.</span></a>
+      <a class="navbar-brand" href="#hero" aria-label="Home">
+        <svg class="brand-mark" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 2L32 17L17 32L2 17L17 2Z" fill="url(#g1)"/>
+          <path d="M17 9L25 17L17 25L9 17L17 9Z" fill="#080C14"/>
+          <defs>
+            <linearGradient id="g1" x1="2" y1="2" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#4D8EF8"/>
+              <stop offset="1" stop-color="#6366F1"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </a>
       <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list text-white fs-4"></i>
       </button>
@@ -31,46 +42,71 @@
   </nav>
 
   <!-- ===== Hero ===== -->
-  <section id="hero" class="hero-section d-flex align-items-center">
+  <section id="hero" class="hero-section">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="container position-relative">
-      <div class="row">
-        <div class="col-xl-9 col-lg-10">
-          <h1 class="hero-title mb-5">
+      <div class="row align-items-center g-5 hero-row">
+
+        <!-- Left: Text -->
+        <div class="col-lg-6">
+          <p class="hero-eyebrow mb-3">
+            <span class="eyebrow-dot"></span>
+            Software Engineering @ uOttawa
+          </p>
+          <h1 class="hero-title mb-4">
             Hi, I'm<br />
             <span class="gradient-text">Tyler Le</span>
           </h1>
           <p class="hero-desc mb-5">
-            Software engineering student at uOttawa. Hackathon winner, co-op developer, and builder of things that actually feel good to use.
+            Hackathon winner, co-op developer, and builder of things that actually feel good to use.
           </p>
-          <div class="d-flex gap-3 flex-wrap">
+          <div class="d-flex gap-3 flex-wrap mb-5">
             <a href="#cases" class="btn-glow">View My Work</a>
             <a href="#about" class="btn-ghost">About Me</a>
           </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">4</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">SEG3125</div>
+              <div class="stat-label">UI/UX Course</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">uOttawa</div>
+              <div class="stat-label">University</div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Stats strip -->
-      <div class="hero-stats row g-4 mt-5">
-        <div class="col-auto">
-          <div class="stat-item">
-            <div class="stat-number">4</div>
-            <div class="stat-label">Projects This Semester</div>
+        <!-- Right: Code card -->
+        <div class="col-lg-5 offset-lg-1 d-none d-lg-flex justify-content-center">
+          <div class="hero-visual">
+            <div class="code-card">
+              <div class="code-topbar">
+                <span class="code-dot dot-red"></span>
+                <span class="code-dot dot-yellow"></span>
+                <span class="code-dot dot-green"></span>
+                <span class="code-filename">tyler.js</span>
+              </div>
+              <div class="code-content">
+                <div class="code-line"><span class="c-kw">const</span> <span class="c-var">tyler</span> <span class="c-op">=</span> <span class="c-br">{</span></div>
+                <div class="code-line indent1"><span class="c-prop">role</span><span class="c-punct">:</span> <span class="c-str">"SWE Co-op"</span><span class="c-punct">,</span></div>
+                <div class="code-line indent1"><span class="c-prop">school</span><span class="c-punct">:</span> <span class="c-str">"uOttawa"</span><span class="c-punct">,</span></div>
+                <div class="code-line indent1"><span class="c-prop">won</span><span class="c-punct">:</span> <span class="c-str">"uOttaHack 8"</span><span class="c-punct">,</span></div>
+                <div class="code-line indent1"><span class="c-prop">passion</span><span class="c-punct">:</span> <span class="c-fn">() =&gt;</span> <span class="c-br">{</span></div>
+                <div class="code-line indent2"><span class="c-kw">return</span> <span class="c-str">"things that feel"</span></div>
+                <div class="code-line indent2"><span class="c-str">&nbsp;&nbsp;&nbsp;+ " good to use"</span></div>
+                <div class="code-line indent1"><span class="c-br">}</span></div>
+                <div class="code-line"><span class="c-br">}</span><span class="c-punct">;</span></div>
+                <div class="code-line code-comment"><span class="c-comment">// </span><span id="typed-text"></span><span class="cursor-blink">&#9611;</span></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-auto">
-          <div class="stat-item">
-            <div class="stat-number">SEG3125</div>
-            <div class="stat-label">UI/UX Design Course</div>
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="stat-item">
-            <div class="stat-number">uOttawa</div>
-            <div class="stat-label">University of Ottawa</div>
-          </div>
-        </div>
+
       </div>
     </div>
 
@@ -85,7 +121,6 @@
     <div class="container">
       <div class="row align-items-center g-5">
 
-        <!-- Photo -->
         <div class="col-lg-4 text-center">
           <div class="profile-ring mx-auto">
             <img
@@ -94,34 +129,36 @@
               class="profile-img"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
-            <div class="profile-placeholder" style="display:none;">TL</div>
+            <div class="profile-placeholder" style="display:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M3 20c0-4 4-7 9-7s9 3 9 7"/>
+              </svg>
+            </div>
           </div>
-          <div class="mt-4 d-flex justify-content-center gap-2">
+          <div class="mt-4 d-flex justify-content-center gap-2 align-items-center">
             <span class="dot-deco"></span>
             <span class="dot-deco active"></span>
             <span class="dot-deco"></span>
           </div>
         </div>
 
-        <!-- Bio -->
         <div class="col-lg-8">
           <p class="overline mb-2">About Me</p>
           <h2 class="section-title mb-4">Who I Am</h2>
           <p class="mb-3">
-            I'm Tyler Le, a software engineering co-op student at the University of Ottawa. I've shipped full-stack apps at federal government agencies (ISED, Global Affairs Canada), won hackathons with React &amp; Supabase projects, and taught kids robotics, all before finishing second year.
+            I'm Tyler Le, a software engineering co-op student at the University of Ottawa. I've shipped full-stack apps at federal government agencies (ISED, Global Affairs Canada), won hackathons with React &amp; Supabase projects, and taught kids robotics — all before finishing second year.
           </p>
           <p class="mb-5">
             I thrive at the intersection of engineering precision and creative problem-solving. Whether I'm automating 15+ end-to-end test scripts or sketching out a user flow, I bring the same mindset: build things that actually work <em>and</em> feel good to use.
           </p>
 
-          <!-- Interests -->
           <div class="d-flex flex-wrap gap-2 mb-4">
             <span class="chip"><i class="bi bi-code-slash"></i>Software &amp; Coding</span>
             <span class="chip"><i class="bi bi-controller"></i>Gaming</span>
             <span class="chip"><i class="bi bi-trophy"></i>Sports &amp; Fitness</span>
           </div>
 
-          <!-- Info row -->
           <div class="row g-3">
             <div class="col-auto">
               <div class="info-pill"><i class="bi bi-geo-alt me-2"></i>Ottawa, Ontario</div>
@@ -155,7 +192,7 @@
             <div class="icon-box"><i class="bi bi-journal-code"></i></div>
             <h5>Currently Learning</h5>
             <p class="small">
-              Enrolled in <strong>SEG3125: UI/UX Design</strong> at the University of Ottawa. Exploring user-centered design, visual communication, and interactive prototyping, and applying it to real designs throughout the semester.
+              Enrolled in <strong>SEG3125: UI/UX Design</strong> at the University of Ottawa. Exploring user-centered design, visual communication, and interactive prototyping — applying it to real designs throughout the semester.
             </p>
           </div>
         </div>
@@ -165,7 +202,7 @@
             <div class="icon-box"><i class="bi bi-briefcase"></i></div>
             <h5>Real-World Experience</h5>
             <p class="small">
-              Co-op developer at <strong>ISED</strong> and <strong>Global Affairs Canada</strong>. Built Playwright/JS automation suites, managed Git workflows, and shipped across Agile sprints. Also a two-time hackathon builder (uOttaHack 7 &amp; 8).
+              Co-op developer at <strong>ISED</strong> and <strong>Global Affairs Canada</strong>. Built Playwright/JS automation suites, managed Git workflows, and shipped across Agile sprints. Two-time hackathon builder (uOttaHack 7 &amp; 8).
             </p>
           </div>
         </div>
@@ -175,16 +212,15 @@
             <div class="icon-box"><i class="bi bi-tools"></i></div>
             <h5>My Toolkit</h5>
             <p class="small">
-              React, TypeScript, Node.js, Playwright, Tailwind CSS for front-end &amp; testing. HTML/CSS/JS/Bootstrap 5 for UI work. Git, Jira, and Agile from co-op. Currently adding UI/UX design to the stack via
+              React, TypeScript, Node.js, Playwright, Tailwind for front-end &amp; testing. Git, Jira, and Agile from co-op. Currently adding UI/UX design via
               <a href="https://www.nngroup.com" class="link-accent" target="_blank" rel="noopener">NN/g</a> principles.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Resources strip -->
       <div class="resources-strip mt-5">
-        <p class="small text-center mb-3" style="color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-size: 0.72rem;">Learning Resources</p>
+        <p class="small text-center mb-3" style="color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; font-size: 0.7rem;">Learning Resources</p>
         <div class="d-flex flex-wrap justify-content-center gap-3">
           <a href="https://www.w3schools.com" class="resource-link" target="_blank" rel="noopener">W3Schools</a>
           <a href="https://www.nngroup.com" class="resource-link" target="_blank" rel="noopener">Nielsen Norman Group</a>
@@ -202,32 +238,31 @@
         <p class="overline mb-2">Portfolio</p>
         <h2 class="section-title mb-3">Case Studies</h2>
         <p style="max-width: 480px; margin: 0 auto;">
-          Four design projects I'll be completing throughout the semester. Each one is a work in progress.
+          Four design projects completing throughout the semester. Each one is a work in progress.
         </p>
         <div class="wip-notice mt-3">
           <i class="bi bi-clock-history me-2"></i>All projects are currently in progress. Check back as the semester continues.
         </div>
       </div>
 
-      <div class="row g-4">
-        <!-- Design 1: Tech Repair Shop -->
-        <div class="col-md-6">
-          <a href="coming-soon/design1.html" class="case-link">
+      <div class="bento-grid">
+
+        <div class="bento-item bento-wide">
+          <a href="design1/index.html" class="case-link">
             <div class="case-card fade-in">
               <span class="case-num">01</span>
-              <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
+              <div class="cs-status-banner" style="background:rgba(22,163,74,0.1);border-color:rgba(22,163,74,0.22);color:rgba(255,255,255,0.75);"><i class="bi bi-check-circle me-2"></i>Live</div>
               <div class="case-icon"><i class="bi bi-cpu"></i></div>
               <span class="case-badge">Service Site</span>
-              <h4>Tech Repair Shop</h4>
-              <p>A service website for a local tech repair shop.</p>
+              <h4>PixelFix Tech Repair</h4>
+              <p>Full UCD service site — multi-step booking, 6 services, contact section. Built with Bootstrap + vanilla JS.</p>
             </div>
           </a>
         </div>
 
-        <!-- Design 2: Memory Game -->
-        <div class="col-md-6">
+        <div class="bento-item">
           <a href="coming-soon/design2.html" class="case-link">
-            <div class="case-card fade-in">
+            <div class="case-card fade-in h-100">
               <span class="case-num">02</span>
               <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
               <div class="case-icon"><i class="bi bi-grid-3x3-gap"></i></div>
@@ -238,10 +273,9 @@
           </a>
         </div>
 
-        <!-- Design 3: E-commerce -->
-        <div class="col-md-6">
+        <div class="bento-item">
           <a href="coming-soon/design3.html" class="case-link">
-            <div class="case-card fade-in">
+            <div class="case-card fade-in h-100">
               <span class="case-num">03</span>
               <div class="cs-status-banner"><i class="bi bi-hourglass-split me-2"></i>Coming Soon</div>
               <div class="case-icon"><i class="bi bi-bag-heart"></i></div>
@@ -252,8 +286,7 @@
           </a>
         </div>
 
-        <!-- Design 4: Finance Dashboard -->
-        <div class="col-md-6">
+        <div class="bento-item bento-wide">
           <a href="coming-soon/design4.html" class="case-link">
             <div class="case-card fade-in">
               <span class="case-num">04</span>
@@ -265,23 +298,17 @@
             </div>
           </a>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- ===== Footer ===== -->
   <footer>
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-          <span class="footer-brand">TL<span class="dot">.</span></span>
-        </div>
-        <div class="col-md-6 text-center text-md-end">
-          <p class="small mb-0" style="color: var(--text-muted);">
-            &copy; 2026 Tyler Le &nbsp;&middot;&nbsp; 300401351 &nbsp;&middot;&nbsp; SEG3125 &nbsp;&middot;&nbsp; University of Ottawa
-          </p>
-        </div>
-      </div>
+    <div class="container text-center">
+      <p class="small mb-0" style="color: var(--text-muted);">
+        &copy; 2026 Tyler Le &nbsp;&middot;&nbsp; 300401351 &nbsp;&middot;&nbsp; SEG3125 &nbsp;&middot;&nbsp; University of Ottawa
+      </p>
     </div>
   </footer>
 

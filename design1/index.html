@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelFix | Tech Repair & Service — Ottawa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      --blue:        #1E3A8A;
+      --blue-mid:    #2563EB;
+      --blue-light:  #EFF6FF;
+      --blue-pale:   #DBEAFE;
+      --orange:      #F97316;
+      --orange-dark: #EA580C;
+      --orange-pale: #FFF7ED;
+      --bg:          #F8FAFC;
+      --surface:     #FFFFFF;
+      --dark:        #0F172A;
+      --dark-mid:    #1E293B;
+      --border:      #E2E8F0;
+      --text:        #1E293B;
+      --text-muted:  #64748B;
+      --text-light:  #94A3B8;
+      --green:       #16A34A;
+      --red:         #DC2626;
+      --radius:      12px;
+      --shadow:      0 4px 24px rgba(30,58,138,0.07);
+      --shadow-lg:   0 12px 40px rgba(30,58,138,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 74px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; }
+
+    a { text-decoration: none; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ===== Navbar ===== */
+    #mainNav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.875rem 0;
+      transition: box-shadow 0.3s;
+    }
+
+    #mainNav.scrolled { box-shadow: 0 2px 20px rgba(30,58,138,0.08); }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo .accent { color: var(--orange); }
+
+    .nav-link-item {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-link-item:hover, .nav-link-item.active {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .btn-nav-book {
+      background: var(--orange);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-nav-book:hover { background: var(--orange-dark); transform: translateY(-1px); color: white; }
+
+    .back-link {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--blue-mid); }
+
+    /* Mobile menu */
+    .hamburger {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--dark);
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #mobileMenu {
+      display: none;
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+    }
+
+    #mobileMenu.open { display: block; }
+
+    #mobileMenu a {
+      display: block;
+      padding: 0.65rem 0;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    #mobileMenu a:last-child { border-bottom: none; }
+
+    /* ===== Hero ===== */
+    #hero {
+      background: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(37,99,235,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.28);
+      color: #FB923C;
+      padding: 0.32rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.75rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.03;
+      letter-spacing: -2.5px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title .orange { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.58);
+      max-width: 430px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--orange);
+      color: white;
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--orange-dark);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(249,115,22,0.4);
+    }
+
+    .btn-hero-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: transparent;
+      color: rgba(255,255,255,0.72);
+      padding: 0.9rem 1.75rem;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-hero-ghost:hover { border-color: rgba(255,255,255,0.45); color: white; }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.75rem;
+    }
+
+    .hero-stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.42);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.15rem;
+    }
+
+    /* Device grid */
+    .device-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      max-width: 320px;
+      margin-left: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .device-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.4rem 0.75rem;
+      text-align: center;
+      cursor: default;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+
+    .device-card:hover {
+      background: rgba(249,115,22,0.1);
+      border-color: rgba(249,115,22,0.28);
+      transform: translateY(-3px);
+    }
+
+    .device-card i {
+      font-size: 1.7rem;
+      color: rgba(255,255,255,0.45);
+      display: block;
+      margin-bottom: 0.4rem;
+      transition: color 0.25s;
+    }
+
+    .device-card:hover i { color: #FB923C; }
+
+    .device-card span {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.3);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== Sections shared ===== */
+    .section-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-heading {
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 0.7rem;
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===== Services ===== */
+    #services { padding: 90px 0; background: var(--surface); }
+
+    .service-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      height: 100%;
+      cursor: pointer;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(249,115,22,0.32);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon-box {
+      width: 52px;
+      height: 52px;
+      background: var(--orange-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .service-icon-box i { font-size: 1.4rem; color: var(--orange); }
+
+    .service-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .service-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    .btn-service {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--blue-mid);
+      border: 1.5px solid var(--blue-pale);
+      background: var(--blue-light);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .btn-service:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+    }
+
+    /* ===== Booking Wizard ===== */
+    #booking { padding: 90px 0; background: var(--blue-light); }
+
+    .wizard-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Step indicator */
+    .step-rail {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2.25rem;
+      position: relative;
+    }
+
+    .step-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: calc(50% + 18px);
+      width: calc(100% - 36px);
+      height: 2px;
+      background: var(--border);
+      transition: background 0.3s;
+    }
+
+    .step-item.done:not(:last-child)::after { background: var(--green); }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .step-item.active .step-num {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: white;
+    }
+
+    .step-item.done .step-num {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    .step-lbl {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: 0.4rem;
+    }
+
+    .step-item.active .step-lbl { color: var(--orange); }
+    .step-item.done  .step-lbl  { color: var(--green); }
+
+    /* Wizard steps */
+    .wz-step { display: none; }
+    .wz-step.active { display: block; }
+
+    .wz-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .wz-sub { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    /* Alert */
+    #wzAlert {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: var(--red);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    /* Step 1: service grid */
+    .svc-select-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 576px) { .svc-select-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .svc-select-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .svc-select-card:hover {
+      border-color: rgba(249,115,22,0.4);
+      background: var(--orange-pale);
+    }
+
+    .svc-select-card.selected {
+      border-color: var(--orange);
+      background: var(--orange-pale);
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+    }
+
+    .svc-select-card i {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .svc-select-card.selected i { color: var(--orange); }
+
+    .svc-select-name { font-size: 0.82rem; font-weight: 700; color: var(--dark); line-height: 1.25; }
+    .svc-select-price { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    /* Step 2: date & time */
+    .form-label-lbl {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .inp {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--surface);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .inp:focus { border-color: var(--orange); }
+    .inp.err { border-color: var(--red); }
+
+    .errmsg {
+      font-size: 0.75rem;
+      color: var(--red);
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .errmsg.show { display: block; }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+    }
+
+    @media (max-width: 480px) { .time-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .time-btn {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--surface);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .time-btn:not(.taken):hover { border-color: var(--orange); color: var(--orange); background: var(--orange-pale); }
+    .time-btn.picked { background: var(--orange); border-color: var(--orange); color: white; }
+
+    .time-btn.taken {
+      opacity: 0.38;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* Step 3: contact info */
+    .form-group { margin-bottom: 1rem; }
+
+    /* Step 4: confirm */
+    .confirm-box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+
+    .confirm-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+
+    .confirm-row:last-child { border-bottom: none; }
+    .clbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+    .cval { font-size: 0.88rem; color: var(--dark); font-weight: 700; text-align: right; }
+
+    /* Wizard nav */
+    .wz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-back {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-back:hover { border-color: var(--text-muted); color: var(--dark); }
+
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange);
+      border: none;
+      color: white;
+      padding: 0.7rem 1.75rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-next:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(249,115,22,0.38);
+    }
+
+    /* Success state */
+    #bookingSuccess { display: none; text-align: center; padding: 1rem 0; }
+    #bookingSuccess.show { display: block; }
+
+    .success-ring {
+      width: 84px;
+      height: 84px;
+      background: #DCFCE7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 2.5rem;
+      color: var(--green);
+    }
+
+    .ref-badge {
+      display: inline-block;
+      background: var(--blue-light);
+      border: 1px solid var(--blue-pale);
+      color: var(--blue);
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== Why PixelFix ===== */
+    #why { padding: 90px 0; background: var(--dark); }
+
+    .feature-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      height: 100%;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .feature-card:hover {
+      background: rgba(249,115,22,0.07);
+      border-color: rgba(249,115,22,0.18);
+    }
+
+    .feat-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(249,115,22,0.14);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .feat-icon i { font-size: 1.25rem; color: #FB923C; }
+
+    .feat-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 0.45rem; }
+    .feat-text  { font-size: 0.865rem; color: rgba(255,255,255,0.48); line-height: 1.65; }
+
+    /* ===== Contact ===== */
+    #contact { padding: 90px 0; background: var(--surface); }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 0.85rem;
+      transition: border-color 0.2s;
+    }
+
+    .contact-row:hover { border-color: rgba(249,115,22,0.28); }
+
+    .ci {
+      width: 44px;
+      height: 44px;
+      background: var(--orange-pale);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ci i { font-size: 1.1rem; color: var(--orange); }
+    .c-lbl { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .c-val { font-size: 0.93rem; font-weight: 600; color: var(--dark); margin-top: 0.15rem; }
+
+    .hours-table { margin-top: 0.35rem; }
+    .hours-row { display: flex; justify-content: space-between; font-size: 0.83rem; padding: 0.12rem 0; }
+    .hours-day { color: var(--text-muted); font-weight: 500; }
+    .hours-time { color: var(--dark); font-weight: 600; }
+
+    .map-ph {
+      width: 100%;
+      height: 340px;
+      background: var(--blue-light);
+      border: 1px solid var(--blue-pale);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-mid);
+    }
+
+    .map-ph i { font-size: 2.5rem; color: var(--orange); margin-bottom: 0.6rem; }
+    .map-ph span { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--dark);
+      padding: 1.75rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .footer-logo .accent { color: var(--orange); }
+
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 0.2rem; }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    .designer-note { font-size: 0.74rem; color: rgba(255,255,255,0.22); margin-top: 0.4rem; }
+
+    /* Scroll-to-top */
+    #toTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 42px;
+      height: 42px;
+      background: var(--orange);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #toTop.show { opacity: 1; transform: translateY(0); }
+    #toTop:hover { background: var(--orange-dark); }
+
+    /* Fade-up animation */
+    .fu {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fu.in { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav id="mainNav">
+    <div class="container d-flex align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <a href="../index.html" class="back-link d-none d-md-inline-flex">
+          <i class="bi bi-arrow-left"></i> Portfolio
+        </a>
+        <a href="#hero" class="nav-logo">Pixel<span class="accent">Fix</span></a>
+      </div>
+
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="#services" class="nav-link-item" data-sec="services">Services</a>
+        <a href="#booking"  class="nav-link-item" data-sec="booking">Book</a>
+        <a href="#why"      class="nav-link-item" data-sec="why">About</a>
+        <a href="#contact"  class="nav-link-item" data-sec="contact">Contact</a>
+        <a href="#booking" class="btn-nav-book ms-2">Book Appointment</a>
+      </div>
+
+      <button class="hamburger d-lg-none" id="hamburger" aria-label="Toggle menu">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+
+    <div id="mobileMenu">
+      <a href="#services" onclick="closeMobile()">Services</a>
+      <a href="#booking"  onclick="closeMobile()">Book an Appointment</a>
+      <a href="#why"      onclick="closeMobile()">Why PixelFix</a>
+      <a href="#contact"  onclick="closeMobile()">Contact</a>
+      <a href="../index.html">← Back to Portfolio</a>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section id="hero">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row align-items-center g-5">
+
+        <div class="col-lg-6">
+          <div class="hero-badge">
+            <i class="bi bi-geo-alt-fill"></i> Ottawa's Trusted Repair Centre
+          </div>
+          <h1 class="hero-title">
+            Fast.<br />Reliable.<br /><span class="orange">Guaranteed.</span>
+          </h1>
+          <p class="hero-sub">
+            Expert repairs for phones, laptops, tablets, and more. Most jobs completed same day. No fix — no fee.
+          </p>
+          <div class="hero-btns">
+            <a href="#booking" class="btn-hero-primary">
+              Book an Appointment <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="#services" class="btn-hero-ghost">
+              <i class="bi bi-tools"></i> View Services
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">500+</div>
+              <div class="hero-stat-label">Repairs Done</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">Same Day</div>
+              <div class="hero-stat-label">Most Repairs</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">1 Year</div>
+              <div class="hero-stat-label">Parts Warranty</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
+          <div class="device-grid">
+            <div class="device-card"><i class="bi bi-phone"></i><span>Phone</span></div>
+            <div class="device-card"><i class="bi bi-laptop"></i><span>Laptop</span></div>
+            <div class="device-card"><i class="bi bi-tablet"></i><span>Tablet</span></div>
+            <div class="device-card"><i class="bi bi-display"></i><span>Desktop</span></div>
+            <div class="device-card"><i class="bi bi-smartwatch"></i><span>Watch</span></div>
+            <div class="device-card"><i class="bi bi-headphones"></i><span>Audio</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section id="services">
+    <div class="container">
+      <div class="text-center mb-5 fu">
+        <span class="section-tag">What We Fix</span>
+        <h2 class="section-heading">Our Repair Services</h2>
+        <p class="section-sub">Professional repairs for all major brands. Transparent pricing, no hidden fees.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('screen')">
+            <div class="service-icon-box"><i class="bi bi-phone"></i></div>
+            <div class="service-name">Screen Repair</div>
+            <p class="service-desc">Cracked or dead screen? We replace displays for iPhone, Android, iPad, and laptops using OEM-grade parts.</p>
+            <div class="service-price">From $89</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('screen')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('battery')">
+            <div class="service-icon-box"><i class="bi bi-battery-charging"></i></div>
+            <div class="service-name">Battery Replacement</div>
+            <p class="service-desc">Restore full-day battery life. We carry batteries for all popular phones, tablets, and MacBooks.</p>
+            <div class="service-price">From $49</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('battery')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('data')">
+            <div class="service-icon-box"><i class="bi bi-hdd"></i></div>
+            <div class="service-name">Data Recovery</div>
+            <p class="service-desc">Lost photos, documents, or contacts? We recover data from damaged drives, water-damaged phones, and broken devices.</p>
+            <div class="service-price">From $129</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('data')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('virus')">
+            <div class="service-icon-box"><i class="bi bi-shield-check"></i></div>
+            <div class="service-name">Virus &amp; Malware Removal</div>
+            <p class="service-desc">Slow computer or suspicious activity? We deep-clean your system and set up proper protection to keep threats out.</p>
+            <div class="service-price">$79 flat</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('virus')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('hardware')">
+            <div class="service-icon-box"><i class="bi bi-cpu"></i></div>
+            <div class="service-name">Hardware Upgrade</div>
+            <p class="service-desc">Speed up your old machine with a RAM boost or SSD swap. We source quality components and handle the install.</p>
+            <div class="service-price">From $59</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('hardware')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fu" onclick="bookService('water')">
+            <div class="service-icon-box"><i class="bi bi-droplet"></i></div>
+            <div class="service-name">Water Damage Recovery</div>
+            <p class="service-desc">Don't turn it on — bring it in immediately. We use ultrasonic cleaning to maximize your device's chance of survival.</p>
+            <div class="service-price">From $149</div>
+            <button class="btn-service" onclick="event.stopPropagation();bookService('water')">
+              Book This <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Booking Wizard ===== -->
+  <section id="booking">
+    <div class="container">
+      <div class="text-center mb-5 fu">
+        <span class="section-tag">Online Booking</span>
+        <h2 class="section-heading">Book an Appointment</h2>
+        <p class="section-sub">Reserve your slot in under 2 minutes. We'll confirm via email.</p>
+      </div>
+
+      <div class="wizard-card">
+        <!-- Step indicator -->
+        <div class="step-rail" id="stepRail">
+          <div class="step-item" data-step="1">
+            <div class="step-num">1</div>
+            <div class="step-lbl">Service</div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-num">2</div>
+            <div class="step-lbl">Date &amp; Time</div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-num">3</div>
+            <div class="step-lbl">Your Info</div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-num">4</div>
+            <div class="step-lbl">Confirm</div>
+          </div>
+        </div>
+
+        <div id="wzAlert"></div>
+
+        <div id="bookingForm">
+          <!-- Step 1: Choose Service -->
+          <div class="wz-step" id="wz1">
+            <div class="wz-title">Choose a Service</div>
+            <div class="wz-sub">Select the repair you need. You can describe your issue in detail later.</div>
+
+            <div class="svc-select-grid" id="svcGrid">
+              <div class="svc-select-card" data-svc="screen" onclick="pickSvc('screen', this)">
+                <i class="bi bi-phone"></i>
+                <div><div class="svc-select-name">Screen Repair</div><div class="svc-select-price">From $89</div></div>
+              </div>
+              <div class="svc-select-card" data-svc="battery" onclick="pickSvc('battery', this)">
+                <i class="bi bi-battery-charging"></i>
+                <div><div class="svc-select-name">Battery Replacement</div><div class="svc-select-price">From $49</div></div>
+              </div>
+              <div class="svc-select-card" data-svc="data" onclick="pickSvc('data', this)">
+                <i class="bi bi-hdd"></i>
+                <div><div class="svc-select-name">Data Recovery</div><div class="svc-select-price">From $129</div></div>
+              </div>
+              <div class="svc-select-card" data-svc="virus" onclick="pickSvc('virus', this)">
+                <i class="bi bi-shield-check"></i>
+                <div><div class="svc-select-name">Virus Removal</div><div class="svc-select-price">$79 flat</div></div>
+              </div>
+              <div class="svc-select-card" data-svc="hardware" onclick="pickSvc('hardware', this)">
+                <i class="bi bi-cpu"></i>
+                <div><div class="svc-select-name">Hardware Upgrade</div><div class="svc-select-price">From $59</div></div>
+              </div>
+              <div class="svc-select-card" data-svc="water" onclick="pickSvc('water', this)">
+                <i class="bi bi-droplet"></i>
+                <div><div class="svc-select-name">Water Damage</div><div class="svc-select-price">From $149</div></div>
+              </div>
+            </div>
+
+            <div class="wz-nav">
+              <span></span>
+              <button class="btn-next" onclick="wzNext()">Next: Date &amp; Time <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Step 2: Date & Time -->
+          <div class="wz-step" id="wz2">
+            <div class="wz-title">Pick a Date &amp; Time</div>
+            <div class="wz-sub">Choose when you'd like to bring your device in.</div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label-lbl" for="dateIn">Preferred Date</label>
+                <input type="date" id="dateIn" class="inp" onchange="onDateChange()" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label-lbl" for="deviceType">Device Type</label>
+                <select id="deviceType" class="inp">
+                  <option value="">Select your device...</option>
+                  <option>iPhone</option>
+                  <option>Android Phone</option>
+                  <option>MacBook</option>
+                  <option>Windows Laptop</option>
+                  <option>iPad / Tablet</option>
+                  <option>Desktop / PC</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="form-label-lbl">Available Time Slots</label>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">
+              <i class="bi bi-info-circle me-1"></i>Greyed-out slots are already booked.
+            </p>
+            <div class="time-grid" id="timeGrid"></div>
+
+            <div class="wz-nav">
+              <button class="btn-back" onclick="wzBack()"><i class="bi bi-arrow-left"></i> Back</button>
+              <button class="btn-next" onclick="wzNext()">Next: Your Info <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Step 3: Contact Info -->
+          <div class="wz-step" id="wz3">
+            <div class="wz-title">Your Details</div>
+            <div class="wz-sub">We'll send a confirmation to your email address.</div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-lbl" for="fName">Full Name <span style="color:var(--red)">*</span></label>
+                  <input type="text" id="fName" class="inp" placeholder="Jane Smith" />
+                  <div class="errmsg" id="errName">Please enter your name.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-lbl" for="fEmail">Email <span style="color:var(--red)">*</span></label>
+                  <input type="email" id="fEmail" class="inp" placeholder="jane@email.com" />
+                  <div class="errmsg" id="errEmail">Please enter a valid email.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-lbl" for="fPhone">Phone Number <span style="color:var(--red)">*</span></label>
+                  <input type="tel" id="fPhone" class="inp" placeholder="(613) 555-0100" />
+                  <div class="errmsg" id="errPhone">Please enter a valid phone number.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label-lbl" for="fNotif">Notification Preference</label>
+                  <select id="fNotif" class="inp">
+                    <option value="email">Email</option>
+                    <option value="sms">SMS / Text</option>
+                    <option value="both">Both</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="form-label-lbl" for="fDesc">Describe the Issue (optional)</label>
+                  <textarea id="fDesc" class="inp" rows="3" placeholder="e.g. Screen cracked after drop, back glass still intact..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="wz-nav">
+              <button class="btn-back" onclick="wzBack()"><i class="bi bi-arrow-left"></i> Back</button>
+              <button class="btn-next" onclick="wzNext()">Review Booking <i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Step 4: Confirmation -->
+          <div class="wz-step" id="wz4">
+            <div class="wz-title">Review Your Booking</div>
+            <div class="wz-sub">Please confirm your appointment details below.</div>
+
+            <div class="confirm-box">
+              <div class="confirm-row">
+                <span class="clbl">Service</span>
+                <span class="cval" id="cSvc">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Device</span>
+                <span class="cval" id="cDevice">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Date</span>
+                <span class="cval" id="cDate">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Time</span>
+                <span class="cval" id="cTime">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Name</span>
+                <span class="cval" id="cName">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Email</span>
+                <span class="cval" id="cEmail">—</span>
+              </div>
+              <div class="confirm-row">
+                <span class="clbl">Phone</span>
+                <span class="cval" id="cPhone">—</span>
+              </div>
+            </div>
+
+            <p style="font-size:0.8rem;color:var(--text-muted);">
+              <i class="bi bi-info-circle me-1"></i>
+              By confirming, you agree to a $0 cancellation fee if cancelled 24+ hours in advance.
+            </p>
+
+            <div class="wz-nav">
+              <button class="btn-back" onclick="wzBack()"><i class="bi bi-arrow-left"></i> Back</button>
+              <button class="btn-next" onclick="submitBooking()">
+                <i class="bi bi-check-lg"></i> Confirm Booking
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div id="bookingSuccess">
+          <div class="success-ring"><i class="bi bi-check-lg"></i></div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+            Booking Confirmed!
+          </h3>
+          <p style="color:var(--text-muted);font-size:0.95rem;max-width:380px;margin:0 auto 1rem;">
+            We've sent a confirmation to your email. Bring your device to our shop at your scheduled time.
+          </p>
+          <div class="ref-badge" id="refNum"></div>
+          <p style="color:var(--text-muted);font-size:0.78rem;margin-top:0.4rem;">Your booking reference</p>
+          <button class="btn-next mt-4" onclick="resetWizard()" style="margin:0 auto;">
+            <i class="bi bi-plus"></i> Book Another Repair
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Why PixelFix ===== -->
+  <section id="why">
+    <div class="container">
+      <div class="text-center mb-5 fu">
+        <span class="section-tag" style="color:#FB923C;">Why Choose Us</span>
+        <h2 class="section-heading" style="color:white;">Built on Trust</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.48);">We treat every device like it's our own.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card fu">
+            <div class="feat-icon"><i class="bi bi-lightning-charge"></i></div>
+            <div class="feat-title">Same-Day Service</div>
+            <p class="feat-text">Most screen and battery repairs are done within 1–2 hours. Drop in or book ahead.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card fu">
+            <div class="feat-icon"><i class="bi bi-award"></i></div>
+            <div class="feat-title">Certified Technicians</div>
+            <p class="feat-text">All repairs done by Apple and Google certified technicians with 5+ years of experience.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card fu">
+            <div class="feat-icon"><i class="bi bi-shield-check"></i></div>
+            <div class="feat-title">1-Year Warranty</div>
+            <p class="feat-text">Every repair comes with a 12-month parts and labour warranty. No asterisks, no fine print.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card fu">
+            <div class="feat-icon"><i class="bi bi-cash-coin"></i></div>
+            <div class="feat-title">No Fix, No Fee</div>
+            <p class="feat-text">If we can't fix it, you don't pay. Transparent quotes before we touch your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact">
+    <div class="container">
+      <div class="text-center mb-5 fu">
+        <span class="section-tag">Find Us</span>
+        <h2 class="section-heading">Visit Our Shop</h2>
+        <p class="section-sub">Walk-ins welcome. Appointments recommended for faster service.</p>
+      </div>
+
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-5 fu">
+          <div class="contact-row">
+            <div class="ci"><i class="bi bi-geo-alt"></i></div>
+            <div>
+              <div class="c-lbl">Address</div>
+              <div class="c-val">240 Sparks St, Unit 12<br />Ottawa, ON  K1P 6E1</div>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="ci"><i class="bi bi-telephone"></i></div>
+            <div>
+              <div class="c-lbl">Phone</div>
+              <div class="c-val">(613) 555-0192</div>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="ci"><i class="bi bi-envelope"></i></div>
+            <div>
+              <div class="c-lbl">Email</div>
+              <div class="c-val">hello@pixelfix.ca</div>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="ci"><i class="bi bi-clock"></i></div>
+            <div>
+              <div class="c-lbl">Hours</div>
+              <div class="hours-table">
+                <div class="hours-row"><span class="hours-day">Mon – Fri</span><span class="hours-time">9 AM – 7 PM</span></div>
+                <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10 AM – 5 PM</span></div>
+                <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7 fu">
+          <div class="map-ph">
+            <i class="bi bi-map"></i>
+            <span>240 Sparks St — Ottawa, ON</span>
+            <span style="font-size:0.78rem;color:var(--text-light);margin-top:0.3rem;">Map placeholder — embedded map can go here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+        <div>
+          <div class="footer-logo">Pixel<span class="accent">Fix</span></div>
+          <div class="footer-copy">&copy; 2026 PixelFix Tech Repair &mdash; Ottawa, ON</div>
+          <div class="designer-note">
+            Designed &amp; built by <a href="../index.html" style="color:rgba(255,255,255,0.4);text-decoration:underline;transition:color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Tyler Le</a>
+            &mdash; SEG3125 Assignment 2 &mdash; University of Ottawa &mdash; 300401351
+          </div>
+        </div>
+        <div class="footer-links d-flex gap-3 flex-wrap">
+          <a href="#services">Services</a>
+          <a href="#booking">Book</a>
+          <a href="#why">About</a>
+          <a href="#contact">Contact</a>
+          <a href="../index.html">Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to top -->
+  <button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+    <i class="bi bi-chevron-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    /* ===== State ===== */
+    const B = {
+      step: 1,
+      service: null,
+      serviceLabel: '',
+      date: null,
+      time: null,
+      device: '',
+      name: '',
+      email: '',
+      phone: '',
+    };
+
+    const svcLabels = {
+      screen:   'Screen Repair',
+      battery:  'Battery Replacement',
+      data:     'Data Recovery',
+      virus:    'Virus & Malware Removal',
+      hardware: 'Hardware Upgrade',
+      water:    'Water Damage Recovery',
+    };
+
+    const timeSlots = [
+      '9:00 AM','10:00 AM','11:00 AM',
+      '1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM',
+    ];
+
+    let takenSlots = new Set();
+
+    function randomTaken() {
+      takenSlots = new Set();
+      while (takenSlots.size < 2) takenSlots.add(Math.floor(Math.random() * timeSlots.length));
+    }
+
+    /* ===== Step control ===== */
+    function goStep(n) {
+      B.step = n;
+      document.querySelectorAll('.wz-step').forEach(el => el.classList.remove('active'));
+      const el = document.getElementById('wz' + n);
+      if (el) el.classList.add('active');
+      updateRail();
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateRail() {
+      document.querySelectorAll('.step-item').forEach(item => {
+        const s = +item.dataset.step;
+        item.classList.toggle('active', s === B.step);
+        item.classList.toggle('done',   s < B.step);
+        item.classList.remove('active', 'done');
+        if (s === B.step) item.classList.add('active');
+        else if (s < B.step) item.classList.add('done');
+      });
+    }
+
+    function showAlert(msg) {
+      const a = document.getElementById('wzAlert');
+      a.textContent = msg;
+      a.style.display = 'block';
+      setTimeout(() => { a.style.display = 'none'; }, 3200);
+    }
+
+    function hideAlert() {
+      document.getElementById('wzAlert').style.display = 'none';
+    }
+
+    /* ===== Navigation ===== */
+    function wzNext() {
+      hideAlert();
+      if (B.step === 1) {
+        if (!B.service) { showAlert('Please select a service to continue.'); return; }
+      }
+      if (B.step === 2) {
+        const d = document.getElementById('dateIn').value;
+        const dev = document.getElementById('deviceType').value;
+        if (!d)    { showAlert('Please pick a date.'); return; }
+        if (!dev)  { showAlert('Please select your device type.'); return; }
+        if (!B.time) { showAlert('Please select a time slot.'); return; }
+        B.date   = d;
+        B.device = dev;
+      }
+      if (B.step === 3) {
+        const nm  = document.getElementById('fName').value.trim();
+        const em  = document.getElementById('fEmail').value.trim();
+        const ph  = document.getElementById('fPhone').value.trim();
+        let ok    = true;
+
+        const setErr = (id, errId, cond) => {
+          document.getElementById(id).classList.toggle('err', cond);
+          document.getElementById(errId).classList.toggle('show', cond);
+          if (cond) ok = false;
+        };
+
+        setErr('fName',  'errName',  !nm);
+        setErr('fEmail', 'errEmail', !em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em));
+        setErr('fPhone', 'errPhone', !ph || ph.replace(/\D/g, '').length < 7);
+
+        if (!ok) { showAlert('Please fix the errors above.'); return; }
+        B.name  = nm;
+        B.email = em;
+        B.phone = ph;
+      }
+      if (B.step === 4) { submitBooking(); return; }
+
+      goStep(B.step + 1);
+      if (B.step === 4) buildConfirm();
+    }
+
+    function wzBack() {
+      if (B.step > 1) goStep(B.step - 1);
+    }
+
+    /* ===== Service selection ===== */
+    function pickSvc(id, el) {
+      B.service = id;
+      B.serviceLabel = svcLabels[id] || id;
+      document.querySelectorAll('.svc-select-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function bookService(id) {
+      B.service = id;
+      B.serviceLabel = svcLabels[id] || id;
+      goStep(1);
+      setTimeout(() => {
+        document.querySelectorAll('.svc-select-card').forEach(c => {
+          c.classList.toggle('selected', c.dataset.svc === id);
+        });
+      }, 80);
+    }
+
+    /* ===== Time slots ===== */
+    function renderTimeGrid() {
+      const grid = document.getElementById('timeGrid');
+      grid.innerHTML = '';
+      timeSlots.forEach((t, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'time-btn' + (takenSlots.has(i) ? ' taken' : '');
+        btn.textContent = t;
+        btn.disabled = takenSlots.has(i);
+        if (!takenSlots.has(i)) {
+          btn.addEventListener('click', () => {
+            B.time = t;
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('picked'));
+            btn.classList.add('picked');
+          });
+        }
+        grid.appendChild(btn);
+      });
+    }
+
+    function onDateChange() {
+      B.time = null;
+      randomTaken();
+      renderTimeGrid();
+    }
+
+    /* ===== Confirm step ===== */
+    function buildConfirm() {
+      const d = new Date(B.date + 'T00:00:00');
+      const dStr = d.toLocaleDateString('en-CA', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+      document.getElementById('cSvc').textContent    = B.serviceLabel;
+      document.getElementById('cDevice').textContent = B.device;
+      document.getElementById('cDate').textContent   = dStr;
+      document.getElementById('cTime').textContent   = B.time;
+      document.getElementById('cName').textContent   = B.name;
+      document.getElementById('cEmail').textContent  = B.email;
+      document.getElementById('cPhone').textContent  = B.phone;
+    }
+
+    /* ===== Submission ===== */
+    function submitBooking() {
+      document.getElementById('bookingForm').style.display = 'none';
+      const success = document.getElementById('bookingSuccess');
+      success.classList.add('show');
+      const ref = 'PXF-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+      document.getElementById('refNum').textContent = ref;
+    }
+
+    function resetWizard() {
+      Object.assign(B, { step:1, service:null, serviceLabel:'', date:null, time:null, device:'', name:'', email:'', phone:'' });
+      document.getElementById('bookingForm').style.display = 'block';
+      document.getElementById('bookingSuccess').classList.remove('show');
+      document.querySelectorAll('.svc-select-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('dateIn').value = '';
+      document.querySelectorAll('.inp.err').forEach(e => e.classList.remove('err'));
+      document.querySelectorAll('.errmsg.show').forEach(e => e.classList.remove('show'));
+      goStep(1);
+    }
+
+    /* ===== Navbar ===== */
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      document.getElementById('toTop').classList.toggle('show', window.scrollY > 400);
+    }, { passive: true });
+
+    /* Active nav links */
+    const secs = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-link-item[data-sec]');
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navAs.forEach(a => a.classList.toggle('active', a.dataset.sec === e.target.id));
+        }
+      });
+    }, { threshold: 0.4 });
+
+    secs.forEach(s => io.observe(s));
+
+    /* ===== Fade-up on scroll ===== */
+    const fuOb = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); fuOb.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fu').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4) * 60 + 'ms';
+      fuOb.observe(el);
+    });
+
+    /* ===== Mobile menu ===== */
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    /* ===== Init ===== */
+    randomTaken();
+    renderTimeGrid();
+    updateRail();
+    goStep(1);
+
+    // Set date minimum to tomorrow
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 1);
+    document.getElementById('dateIn').min = minDate.toISOString().split('T')[0];
+  </script>
+</body>
+</html>
