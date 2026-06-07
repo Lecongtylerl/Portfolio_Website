@@ -344,7 +344,7 @@ a { text-decoration: none; }
 
 .info-pill i { color: var(--accent-2); }
 
-/* ===== How I Work ===== */
+/*--How I Work*/
 .work-section { background: var(--bg-primary); }
 
 .work-card {
@@ -407,7 +407,7 @@ a { text-decoration: none; }
 
 .resource-link:hover { color: var(--accent); border-color: var(--accent); }
 
-/* ===== Case Studies ===== */
+/*--Case Studies*/
 .cases-section { background: var(--bg-surface); }
 
 .case-link { display: block; }
@@ -504,7 +504,7 @@ a { text-decoration: none; }
   border-radius: 50px;
 }
 
-/* ===== Footer ===== */
+/*--Footer*/
 footer {
   background: var(--bg-elevated);
   border-top: 1px solid var(--border);
@@ -519,7 +519,7 @@ footer {
   color: var(--text-primary);
 }
 
-/* ===== Case Studies: Coming Soon banner ===== */
+/*--Case Studies:Coming Soon banner*/
 .wip-notice {
   display: inline-flex;
   align-items: center;
@@ -546,7 +546,7 @@ footer {
   margin-bottom: 1rem;
 }
 
-/* ===== Fade-in animation ===== */
+/*--Fade-in animation*/
 .fade-in {
   opacity: 0;
   transform: translateY(24px);
@@ -559,7 +559,7 @@ footer {
   transform: translateY(0);
 }
 
-/* ===== Responsive ===== */
+/*--Responsive*/
 @media (max-width: 768px) {
   .hero-title        { letter-spacing: -1.5px; }
   .py-section        { padding: 80px 0; }
