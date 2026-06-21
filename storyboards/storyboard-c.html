@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storyboard C | Sophie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F3EEFF;
+      color: #1E1B4B;
+      padding: 40px 32px 60px;
+    }
+
+    /* ── Header ── */
+    .sb-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .sb-course {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7C3AED;
+      margin-bottom: 6px;
+    }
+    .sb-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #1E1B4B;
+    }
+    .persona-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #EDE9FE;
+      border: 1px solid #DDD6FE;
+      border-radius: 50px;
+      padding: 8px 20px;
+      margin-top: 14px;
+    }
+    .persona-avatar {
+      width: 36px; height: 36px;
+      background: #7C3AED;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem;
+    }
+    .persona-info { text-align: left; }
+    .persona-name { font-weight: 700; font-size: 0.88rem; color: #4C1D95; }
+    .persona-role { font-size: 0.72rem; color: #6D28D9; }
+    .persona-goal {
+      display: inline-block;
+      background: #7C3AED;
+      color: white;
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* ── Flow ── */
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr 48px 1fr;
+      gap: 0;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .arrow-line {
+      width: 2px;
+      height: 36px;
+      background: #7C3AED;
+      display: none;
+    }
+    .arrow-h {
+      font-size: 1.6rem;
+      color: #7C3AED;
+      line-height: 1;
+    }
+    .arrow-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7C3AED;
+      writing-mode: vertical-rl;
+    }
+
+    /* ── Screen Card ── */
+    .screen-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.14);
+      overflow: hidden;
+      border: 2px solid #DDD6FE;
+    }
+
+    .sc-label {
+      background: #7C3AED;
+      color: #fff;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sc-num {
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .sc-step { font-size: 0.78rem; font-weight: 700; }
+
+    .sc-body { padding: 16px; min-height: 340px; }
+
+    /* ── Screen 1: Setup ── */
+    .s1-title { font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 800; color: #1E1B4B; text-align: center; margin-bottom: 12px; }
+    .s1-sub { font-size: 0.72rem; color: #6D28D9; text-align: center; margin-bottom: 14px; }
+
+    .s1-section-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7C3AED; margin-bottom: 8px; }
+
+    .theme-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+    .s1-theme-btn {
+      background: #F5F3FF;
+      border: 1.5px solid #DDD6FE;
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #4C1D95;
+    }
+    .s1-theme-btn.sel { background: rgba(245,158,11,0.12); border-color: #F59E0B; color: #92400E; }
+    .s1-theme-icon { display: block; font-size: 1.3rem; margin-bottom: 3px; }
+
+    .lvl-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
+    .s1-lvl-btn {
+      background: #F5F3FF;
+      border: 1.5px solid #DDD6FE;
+      border-radius: 10px;
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #4C1D95;
+    }
+    .s1-lvl-btn.sel { background: rgba(124,58,237,0.12); border-color: #7C3AED; color: #4C1D95; }
+    .s1-lvl-sub { font-size: 0.6rem; font-weight: 400; color: #6D28D9; display: block; margin-top: 2px; }
+
+    .s1-start-btn {
+      display: block;
+      width: 100%;
+      background: #7C3AED;
+      color: white;
+      border-radius: 50px;
+      padding: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .annotation {
+      background: #FEF3C7;
+      border-left: 3px solid #F59E0B;
+      border-radius: 0 8px 8px 0;
+      padding: 6px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #92400E;
+      margin-top: 10px;
+    }
+    .annotation::before { content: '→ '; }
+
+    /* ── Screen 2: Game ── */
+    .s2-topbar {
+      background: #1E1B4B;
+      color: white;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .s2-badge {
+      background: rgba(245,158,11,0.25);
+      color: #FCD34D;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.62rem;
+    }
+    .s2-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .s2-card {
+      aspect-ratio: 3/4;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      border: 1.5px solid;
+    }
+    .s2-card.hidden { background: linear-gradient(135deg,#4C1D95,#7C3AED); border-color: #A78BFA; color: transparent; }
+    .s2-card.matched { background: #ECFDF5; border-color: #6EE7B7; }
+    .s2-card.flipped { background: white; border-color: #DDD6FE; }
+    .s2-card.wrong { background: #FEF2F2; border-color: #FCA5A5; }
+
+    .s2-progress {
+      background: #EDE9FE;
+      border-radius: 50px;
+      height: 6px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .s2-progress-fill { height: 100%; background: #7C3AED; border-radius: 50px; }
+
+    /* ── Screen 3: Result ── */
+    .s3-center { text-align: center; }
+    .s3-trophy { font-size: 3rem; display: block; margin-bottom: 6px; }
+    .s3-title { font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 800; color: #1E1B4B; margin-bottom: 8px; }
+    .s3-new-best {
+      display: inline-block;
+      background: #7C3AED;
+      color: white;
+      border-radius: 20px;
+      padding: 3px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .s3-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 14px; }
+    .s3-stat {
+      background: #F5F3FF;
+      border: 1.5px solid #DDD6FE;
+      border-radius: 10px;
+      padding: 10px 6px;
+      text-align: center;
+    }
+    .s3-stat.hl { background: rgba(245,158,11,0.1); border-color: #F59E0B; }
+    .s3-stat-label { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6D28D9; display: block; margin-bottom: 3px; }
+    .s3-stat-val { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; color: #1E1B4B; }
+    .s3-stat.hl .s3-stat-val { color: #92400E; }
+    .s3-btn-row { display: flex; gap: 6px; }
+    .s3-btn-primary {
+      flex: 1;
+      background: #7C3AED;
+      color: white;
+      border-radius: 50px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .s3-btn-secondary {
+      flex: 1;
+      background: #F5F3FF;
+      border: 1.5px solid #DDD6FE;
+      color: #4C1D95;
+      border-radius: 50px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* ── Footer ── */
+    .sb-footer { text-align: center; margin-top: 48px; font-size: 0.68rem; color: #6D28D9; opacity: 0.65; }
+  </style>
+</head>
+<body>
+
+  <div class="sb-header">
+    <p class="sb-course">SEG3125 | Assignment 3 | PixelFix</p>
+    <h1 class="sb-title">Storyboard C: Sophie's Game Journey</h1>
+    <div class="persona-chip">
+      <div class="persona-avatar">👩</div>
+      <div class="persona-info">
+        <div class="persona-name">Sophie, 22, University Student</div>
+        <div class="persona-role">Casual gamer | Moderate tech user | Competitive personality</div>
+      </div>
+    </div>
+    <div><span class="persona-goal">Goal: Beat her own best score on Medium difficulty</span></div>
+  </div>
+
+  <div class="flow">
+
+    <!-- Screen 1 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">1</span>
+        <span class="sc-step">Setup Screen</span>
+      </div>
+      <div class="sc-body">
+        <div class="s1-title">🧠 MemMatch</div>
+        <div class="s1-sub">Train your memory. Flip cards. Find pairs.</div>
+
+        <div class="s1-section-label">Choose Theme</div>
+        <div class="theme-row">
+          <div class="s1-theme-btn"><span class="s1-theme-icon">🐾</span>Animals</div>
+          <div class="s1-theme-btn sel"><span class="s1-theme-icon">🚀</span>Space</div>
+          <div class="s1-theme-btn"><span class="s1-theme-icon">🍕</span>Food</div>
+          <div class="s1-theme-btn"><span class="s1-theme-icon">🌿</span>Nature</div>
+        </div>
+
+        <div class="s1-section-label">Choose Difficulty</div>
+        <div class="lvl-row">
+          <div class="s1-lvl-btn">Easy<span class="s1-lvl-sub">6 pairs</span></div>
+          <div class="s1-lvl-btn sel">Medium<span class="s1-lvl-sub">8 pairs</span></div>
+          <div class="s1-lvl-btn">Hard<span class="s1-lvl-sub">10 pairs</span></div>
+        </div>
+
+        <div class="s1-start-btn">Start Game →</div>
+
+        <div class="annotation">Sophie picks Space theme and Medium difficulty to beat her 1840 pt record</div>
+      </div>
+    </div>
+
+    <!-- Arrow 1 -->
+    <div class="arrow-col">
+      <span class="arrow-h">&#8594;</span>
+    </div>
+
+    <!-- Screen 2 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">2</span>
+        <span class="sc-step">Game in Progress</span>
+      </div>
+      <div class="sc-body">
+        <div class="s2-topbar">
+          <span class="s2-badge">Medium</span>
+          <span>🚀 Space</span>
+          <span style="color:#FCD34D;">⏱ 0:38</span>
+          <span>🔄 12</span>
+        </div>
+
+        <div class="s2-grid">
+          <div class="s2-card matched">🚀</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card matched">⭐</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card matched">🚀</div>
+          <div class="s2-card flipped">🌙</div>
+          <div class="s2-card matched">⭐</div>
+          <div class="s2-card flipped">🌙</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card wrong">🌍</div>
+          <div class="s2-card wrong">🪐</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card hidden">?</div>
+          <div class="s2-card hidden">?</div>
+        </div>
+
+        <div class="s2-progress"><div class="s2-progress-fill" style="width:37%"></div></div>
+        <div style="font-size:0.65rem;color:#6D28D9;text-align:center;margin-bottom:8px;">3 / 8 pairs found</div>
+
+        <div class="annotation">Matched pairs glow green. Wrong pair (red) flips back in 1 second</div>
+      </div>
+    </div>
+
+    <!-- Arrow 2 -->
+    <div class="arrow-col">
+      <span class="arrow-h">&#8594;</span>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">3</span>
+        <span class="sc-step">Result Screen</span>
+      </div>
+      <div class="sc-body">
+        <div class="s3-center">
+          <span class="s3-trophy">🏆</span>
+          <div class="s3-title">Puzzle Complete!</div>
+          <span class="s3-new-best">New Best Score!</span>
+
+          <div class="s3-stats">
+            <div class="s3-stat">
+              <span class="s3-stat-label">Time</span>
+              <span class="s3-stat-val">1:24</span>
+            </div>
+            <div class="s3-stat">
+              <span class="s3-stat-label">Moves</span>
+              <span class="s3-stat-val">19</span>
+            </div>
+            <div class="s3-stat hl">
+              <span class="s3-stat-label">Score</span>
+              <span class="s3-stat-val">1902</span>
+            </div>
+          </div>
+
+          <div class="s3-btn-row">
+            <div class="s3-btn-primary">Play Again</div>
+            <div class="s3-btn-secondary">Settings</div>
+          </div>
+
+          <div class="annotation">Sophie beat her 1840 record. Trophy icon and "New Best" badge reinforce achievement</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sb-footer">Tyler Le | 300401351 | SEG3125 Assignment 3 | Storyboard C: Sophie</div>
+
+</body>
+</html>

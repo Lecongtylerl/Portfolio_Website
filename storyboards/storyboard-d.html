@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storyboard D | Marcus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 40px 32px 60px;
+    }
+
+    /* ── Header ── */
+    .sb-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .sb-course {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #38BDF8;
+      margin-bottom: 6px;
+    }
+    .sb-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #F1F5F9;
+    }
+    .persona-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 50px;
+      padding: 8px 20px;
+      margin-top: 14px;
+    }
+    .persona-avatar {
+      width: 36px; height: 36px;
+      background: #0EA5E9;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem;
+    }
+    .persona-info { text-align: left; }
+    .persona-name { font-weight: 700; font-size: 0.88rem; color: #BAE6FD; }
+    .persona-role { font-size: 0.72rem; color: #7DD3FC; }
+    .persona-goal {
+      display: inline-block;
+      background: #0EA5E9;
+      color: white;
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* ── Flow ── */
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr 48px 1fr;
+      gap: 0;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .arrow-h {
+      font-size: 1.6rem;
+      color: #38BDF8;
+      line-height: 1;
+    }
+
+    /* ── Screen Card ── */
+    .screen-card {
+      background: #1E293B;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      overflow: hidden;
+      border: 1.5px solid #334155;
+    }
+
+    .sc-label {
+      background: #0EA5E9;
+      color: #fff;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sc-num {
+      background: rgba(255,255,255,0.22);
+      border-radius: 50%;
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .sc-step { font-size: 0.78rem; font-weight: 700; }
+
+    .sc-body { padding: 16px; min-height: 340px; }
+
+    /* ── Screen 1: Setup ── */
+    .s1-logo { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 800; color: #BAE6FD; text-align: center; margin-bottom: 4px; }
+    .s1-sub { font-size: 0.68rem; color: #7DD3FC; text-align: center; margin-bottom: 14px; }
+
+    .s1-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #38BDF8; margin-bottom: 6px; }
+
+    .dropdown-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+    .dropdown-field {
+      background: #0F172A;
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      color: #CBD5E1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dropdown-field.sel { border-color: #38BDF8; color: #BAE6FD; }
+    .dropdown-arrow { color: #64748B; font-size: 0.65rem; }
+
+    .s1-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 14px; }
+    .s1-opt {
+      background: #0F172A;
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+    .s1-opt.sel { border-color: #38BDF8; background: rgba(14,165,233,0.08); }
+    .s1-opt-icon { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+    .s1-opt-label { font-size: 0.65rem; font-weight: 600; color: #94A3B8; }
+    .s1-opt.sel .s1-opt-label { color: #7DD3FC; }
+
+    .s1-start {
+      display: block;
+      width: 100%;
+      background: #0EA5E9;
+      color: white;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .annotation {
+      background: #1E293B;
+      border-left: 3px solid #38BDF8;
+      border-radius: 0 8px 8px 0;
+      padding: 6px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #7DD3FC;
+      margin-top: 10px;
+    }
+    .annotation::before { content: '-> '; }
+
+    /* ── Screen 2: Game ── */
+    .s2-topbar {
+      background: #0F172A;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #1E293B;
+    }
+    .s2-badge {
+      background: rgba(14,165,233,0.2);
+      color: #7DD3FC;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 0.62rem;
+      font-weight: 700;
+    }
+    .s2-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+    .s2-card {
+      aspect-ratio: 3/4;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      border: 1.5px solid;
+    }
+    .s2-card.hidden { background: linear-gradient(135deg,#0F172A,#1E3A8A); border-color: #334155; }
+    .s2-card.matched { background: rgba(14,165,233,0.12); border-color: #38BDF8; }
+    .s2-card.flipped { background: #F8FAFC; border-color: #CBD5E1; }
+
+    .s2-pairs-label { font-size: 0.65rem; color: #64748B; text-align: center; }
+
+    /* ── Screen 3: Result ── */
+    .s3-center { text-align: center; }
+    .s3-trophy { font-size: 3rem; display: block; margin-bottom: 8px; }
+    .s3-title { font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 800; color: #F1F5F9; margin-bottom: 10px; }
+
+    .s3-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+    .s3-table tr { border-bottom: 1px solid #1E293B; }
+    .s3-table td { padding: 7px 8px; font-size: 0.75rem; }
+    .s3-table .td-label { color: #64748B; }
+    .s3-table .td-val { font-weight: 700; color: #E2E8F0; text-align: right; }
+    .s3-table .td-val.score { color: #38BDF8; font-size: 0.9rem; }
+
+    .s3-note { font-size: 0.68rem; color: #475569; margin-bottom: 12px; }
+
+    .s3-btn-row { display: flex; gap: 6px; }
+    .s3-btn-primary {
+      flex: 1;
+      background: #0EA5E9;
+      color: white;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .s3-btn-secondary {
+      flex: 1;
+      background: #1E293B;
+      border: 1.5px solid #334155;
+      color: #94A3B8;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+
+    /* ── Footer ── */
+    .sb-footer { text-align: center; margin-top: 48px; font-size: 0.68rem; color: #475569; }
+  </style>
+</head>
+<body>
+
+  <div class="sb-header">
+    <p class="sb-course">SEG3125 | Assignment 3 | MemMatch</p>
+    <h1 class="sb-title">Storyboard D: Marcus's Calm Session</h1>
+    <div class="persona-chip">
+      <div class="persona-avatar">👨</div>
+      <div class="persona-info">
+        <div class="persona-name">Marcus, 44, IT Consultant</div>
+        <div class="persona-role">Low-stress gamer | Experienced tech user | Relaxation-driven</div>
+      </div>
+    </div>
+    <div><span class="persona-goal">Goal: Wind down with a simple Easy-mode game using nature images</span></div>
+  </div>
+
+  <div class="flow">
+
+    <!-- Screen 1 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">1</span>
+        <span class="sc-step">Setup Screen</span>
+      </div>
+      <div class="sc-body">
+        <div class="s1-logo">🧠 MemMatch</div>
+        <div class="s1-sub">Relax and train your memory</div>
+
+        <div class="s1-label">Select Theme</div>
+        <div class="dropdown-row">
+          <div class="dropdown-field">Nature 🌿 <span class="dropdown-arrow">selected</span></div>
+        </div>
+
+        <div class="s1-label">Select Difficulty</div>
+        <div class="dropdown-row" style="margin-bottom:10px;">
+          <div class="dropdown-field sel">Easy (6 pairs) <span class="dropdown-arrow">v</span></div>
+        </div>
+
+        <div class="s1-label" style="margin-bottom:6px;">Preview Cards</div>
+        <div class="s1-grid" style="margin-bottom:14px;">
+          <div class="s1-opt sel"><span class="s1-opt-icon">🌺</span><span class="s1-opt-label">Nature</span></div>
+          <div class="s1-opt"><span class="s1-opt-icon">🚀</span><span class="s1-opt-label">Space</span></div>
+          <div class="s1-opt"><span class="s1-opt-icon">🐾</span><span class="s1-opt-label">Animals</span></div>
+          <div class="s1-opt"><span class="s1-opt-icon">🍕</span><span class="s1-opt-label">Food</span></div>
+        </div>
+
+        <div class="s1-start">Start Game</div>
+
+        <div class="annotation">Marcus uses dropdowns to quickly choose Nature theme and Easy level</div>
+      </div>
+    </div>
+
+    <!-- Arrow 1 -->
+    <div class="arrow-col">
+      <span class="arrow-h">&#8594;</span>
+    </div>
+
+    <!-- Screen 2 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">2</span>
+        <span class="sc-step">Game in Progress</span>
+      </div>
+      <div class="sc-body">
+        <div class="s2-topbar">
+          <span class="s2-badge">Easy</span>
+          <span style="color:#7DD3FC;">🌿 Nature</span>
+          <span style="color:#38BDF8;">0:22</span>
+          <span style="color:#94A3B8;">Moves: 6</span>
+        </div>
+
+        <div class="s2-grid">
+          <div class="s2-card matched">🌺</div>
+          <div class="s2-card hidden"></div>
+          <div class="s2-card matched">🌊</div>
+          <div class="s2-card matched">🌺</div>
+          <div class="s2-card flipped">🌲</div>
+          <div class="s2-card matched">🌊</div>
+          <div class="s2-card hidden"></div>
+          <div class="s2-card flipped">🌸</div>
+          <div class="s2-card hidden"></div>
+          <div class="s2-card hidden"></div>
+          <div class="s2-card hidden"></div>
+          <div class="s2-card hidden"></div>
+        </div>
+
+        <div class="s2-pairs-label" style="margin-bottom:6px;">2 / 6 pairs found</div>
+
+        <div class="annotation">Minimal dark UI keeps Marcus calm and focused. Matched cards glow blue</div>
+      </div>
+    </div>
+
+    <!-- Arrow 2 -->
+    <div class="arrow-col">
+      <span class="arrow-h">&#8594;</span>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="screen-card">
+      <div class="sc-label">
+        <span class="sc-num">3</span>
+        <span class="sc-step">Result Screen</span>
+      </div>
+      <div class="sc-body">
+        <div class="s3-center">
+          <span class="s3-trophy">⭐</span>
+          <div class="s3-title">Puzzle Complete!</div>
+
+          <table class="s3-table">
+            <tr>
+              <td class="td-label">Time</td>
+              <td class="td-val">0:58</td>
+            </tr>
+            <tr>
+              <td class="td-label">Moves</td>
+              <td class="td-val">10</td>
+            </tr>
+            <tr>
+              <td class="td-label">Level</td>
+              <td class="td-val">Easy</td>
+            </tr>
+            <tr>
+              <td class="td-label">Score</td>
+              <td class="td-val score">878 pts</td>
+            </tr>
+          </table>
+
+          <div class="s3-note">Personal best for Easy: 920 pts</div>
+
+          <div class="s3-btn-row">
+            <div class="s3-btn-primary">Play Again</div>
+            <div class="s3-btn-secondary">Settings</div>
+          </div>
+
+          <div class="annotation">Clean stats table suits Marcus's analytical nature. Low-key design avoids overwhelm</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sb-footer">Tyler Le | 300401351 | SEG3125 Assignment 3 | Storyboard D: Marcus</div>
+
+</body>
+</html>
