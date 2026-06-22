@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Storyboard A - Flat Modern</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;padding:40px 30px;display:flex;flex-direction:column;align-items:center;gap:12px;color:#222}
+  h1{font-size:1.3rem;color:#222;font-weight:700;letter-spacing:1px}
+  .persona{font-size:0.85rem;color:#555;max-width:800px;text-align:center;margin-bottom:16px;line-height:1.5}
+  .row{display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+  .col{display:flex;flex-direction:column;align-items:center;gap:0;width:340px}
+
+  .step-num{width:32px;height:32px;border-radius:50%;background:#2196F3;color:#fff;font-weight:700;font-size:0.85rem;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .step-title{font-size:0.85rem;font-weight:700;color:#333;margin-bottom:6px}
+
+  .frame{width:340px;background:#fff;border:2px solid #D0D0D0;border-radius:6px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+
+  /* ---- Flat Modern palette ---- */
+  .header{background:#FAFAFA;border-bottom:1px solid #E0E0E0;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:0.95rem;font-weight:700;color:#333;letter-spacing:0.5px}
+  .bod{padding:16px;background:#FAFAFA;min-height:280px;display:flex;flex-direction:column;gap:10px}
+
+  .lbl{font-size:0.62rem;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:2px}
+  .btn{display:inline-block;padding:7px 14px;border-radius:4px;font-size:0.72rem;font-weight:600;cursor:default}
+  .btn-primary{background:#2196F3;color:#fff;border:none}
+  .btn-out{background:#fff;color:#777;border:1px solid #DDD}
+  .btn-sel{background:#fff;color:#2196F3;border:2px solid #2196F3}
+  .btn-grp{display:flex;gap:6px;flex-wrap:wrap}
+
+  .grid{display:grid;gap:5px}
+  .g3x4{grid-template-columns:repeat(4,1fr)}
+  .card{aspect-ratio:3/4;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600}
+  .c-back{background:#E8E8E8;border:1px solid #CCC;color:#BBB}
+  .c-open{background:#fff;border:2px solid #2196F3;color:#333}
+  .c-match{background:#F5F5F5;border:1px solid #CCC;color:#AAA;text-decoration:line-through}
+
+  .stat{font-size:0.7rem;color:#888}
+  .stat b{color:#333}
+
+  .res-box{text-align:center;padding:14px 10px;border:1px solid #EEE;border-radius:4px;background:#fff;flex:1}
+  .res-box .num{font-size:1.3rem;font-weight:700;color:#333}
+  .res-box .rlbl{font-size:0.55rem;color:#999;text-transform:uppercase;letter-spacing:1px}
+
+  .tag{font-size:0.62rem;padding:3px 10px;border-radius:3px;font-weight:600;display:inline-block}
+  .progress-bar{background:#E0E0E0;height:3px;width:100%;border-radius:2px;overflow:hidden}
+  .progress-fill{background:#2196F3;height:100%}
+
+  /* ---- descriptions section ---- */
+  .descriptions{margin-top:32px;max-width:1100px;width:100%;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+  .desc-card{width:340px;background:#F8F8F8;border:1px solid #E0E0E0;border-radius:6px;padding:16px;font-size:0.8rem;color:#444;line-height:1.6}
+  .desc-card .d-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#2196F3;color:#fff;font-size:0.65rem;font-weight:700;margin-right:6px}
+  .desc-card .d-title{font-weight:700;color:#222;font-size:0.85rem;margin-bottom:6px}
+
+  .notes{margin-top:28px;max-width:1080px;background:#F8F8F8;border:1px solid #E0E0E0;border-radius:6px;padding:18px 24px;line-height:1.6;font-size:0.82rem;color:#555}
+</style>
+</head>
+<body>
+
+<h1>Storyboard A &mdash; Flat Modern Style</h1>
+<p class="persona"><b>Persona: Emma, 10 years old.</b> Playful, visually driven, gets bored with dull apps. She wants to play a fun animal matching game on her tablet.</p>
+
+<div class="row">
+
+  <!-- SETUP -->
+  <div class="col">
+    <div class="step-num">1</div>
+    <div class="step-title">Setup Screen</div>
+    <div class="frame">
+      <div class="header">
+        <span class="logo">MemMatch</span>
+        <span class="stat">v1.0</span>
+      </div>
+      <div class="bod">
+        <div class="lbl">Select Theme</div>
+        <div class="btn-grp">
+          <span class="btn btn-sel">Colors</span>
+          <span class="btn btn-out">Animals</span>
+          <span class="btn btn-out">Sports</span>
+          <span class="btn btn-out">Logos</span>
+        </div>
+        <div class="lbl" style="margin-top:6px">Select Difficulty</div>
+        <div class="btn-grp">
+          <span class="btn btn-sel">Easy &middot; 6 pairs</span>
+          <span class="btn btn-out">Medium &middot; 8</span>
+          <span class="btn btn-out">Hard &middot; 10</span>
+        </div>
+        <div style="border:1px solid #EEE;border-radius:4px;padding:10px;margin-top:6px">
+          <div class="lbl">High Scores</div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#AAA;margin-top:4px"><span>Easy</span><span>---</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#AAA"><span>Medium</span><span>---</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#AAA"><span>Hard</span><span>---</span></div>
+        </div>
+        <div style="margin-top:auto">
+          <span class="btn btn-primary" style="width:100%;text-align:center;display:block;padding:11px;font-size:0.8rem">Start Game</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMEPLAY -->
+  <div class="col">
+    <div class="step-num">2</div>
+    <div class="step-title">Gameplay</div>
+    <div class="frame">
+      <div class="header" style="padding:10px 16px">
+        <span class="tag" style="background:#E3F2FD;color:#1976D2">Easy</span>
+        <div style="display:flex;gap:14px">
+          <span class="stat">Time: <b>0:31</b></span>
+          <span class="stat">Moves: <b>6</b></span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+      <div class="bod" style="padding:12px">
+        <div style="font-size:0.6rem;color:#AAA;text-align:center;letter-spacing:1px">2 / 6 PAIRS FOUND</div>
+        <div class="grid g3x4" style="flex:1">
+          <div class="card c-match">A</div>
+          <div class="card c-back">?</div>
+          <div class="card c-open" style="background:#FFF3E0">B</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-match">A</div>
+          <div class="card c-back">?</div>
+          <div class="card c-open" style="background:#E8F5E9">C</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-match">D</div>
+          <div class="card c-match">D</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END -->
+  <div class="col">
+    <div class="step-num">3</div>
+    <div class="step-title">Game Over</div>
+    <div class="frame">
+      <div class="header"><span class="logo">MemMatch</span></div>
+      <div class="bod" style="align-items:center;justify-content:center;gap:14px;text-align:center">
+        <p style="font-size:1.05rem;font-weight:700;color:#333">Game Complete</p>
+        <div style="display:flex;gap:8px;width:100%">
+          <div class="res-box"><div class="rlbl">Time</div><div class="num">1:12</div></div>
+          <div class="res-box"><div class="rlbl">Moves</div><div class="num">11</div></div>
+          <div class="res-box" style="border-color:#2196F3"><div class="rlbl">Score</div><div class="num" style="color:#2196F3">860</div></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <span class="btn btn-primary">Play Again</span>
+          <span class="btn btn-out">Settings</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DESCRIPTIONS SECTION -->
+<div class="descriptions">
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">1</span> Setup Screen</div>
+    Emma opens the game and sees plain white buttons on a light gray background. The layout is clean with theme and difficulty options clearly labeled. However, it looks like a settings page rather than a game. There is nothing visually exciting to engage a young player.
+  </div>
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">2</span> Gameplay</div>
+    Emma flips cards on a 3&times;4 grid. All unflipped cards are identical gray squares, making it hard to feel any progress. Matched pairs just get a line-through on the letter &mdash; easy to miss while scanning. Two cards are currently flipped but the reveal feedback is flat with no animation or excitement.
+  </div>
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">3</span> Game Over</div>
+    Emma wins and sees a plain &ldquo;Game Complete&rdquo; heading with her stats in boxes. There is no celebration, no animation, and no visual reward. The screen feels like finishing a form rather than winning a game. She has little motivation to replay.
+  </div>
+</div>
+
+<div class="notes">
+  <b style="color:#222">Design Notes:</b> This storyboard uses a white/gray palette, Arial system font, and minimal blue accents. <b>Strengths:</b> text is readable, layout is clear and easy to scan, familiar UI patterns. <b style="color:#C00">Weaknesses:</b> no game personality or visual identity, the generic look could be any app, match feedback is too subtle (line-through text), the win screen lacks any excitement or celebration, overall design would not engage a young user like Emma.
+</div>
+
+</body>
+</html>

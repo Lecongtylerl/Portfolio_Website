@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Storyboard B - Dark Neon</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;padding:40px 30px;display:flex;flex-direction:column;align-items:center;gap:12px;color:#222}
+  h1{font-size:1.3rem;color:#222;font-weight:700;letter-spacing:1px}
+  .persona{font-size:0.85rem;color:#555;max-width:800px;text-align:center;margin-bottom:16px;line-height:1.5}
+  .row{display:flex;gap:24px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+  .col{display:flex;flex-direction:column;align-items:center;gap:0;width:340px}
+
+  .step-num{width:32px;height:32px;border-radius:50%;background:#222;color:#0ff;font-weight:700;font-size:0.85rem;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .step-title{font-size:0.85rem;font-weight:700;color:#333;margin-bottom:6px}
+
+  .frame{width:340px;background:#0A0A10;border:2px solid #ccc;overflow:hidden}
+
+  /* ---- Dark Neon palette (inside frames only) ---- */
+  .header{background:#08080F;border-bottom:1px solid #1a1a2e;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Courier New',monospace;font-size:0.95rem;font-weight:700;color:#0ff;letter-spacing:3px;text-shadow:0 0 6px rgba(0,255,255,0.5)}
+  .bod{padding:14px;background:#0A0A10;min-height:280px;display:flex;flex-direction:column;gap:8px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,255,0.015) 2px,rgba(0,255,255,0.015) 4px)}
+
+  .lbl{font-family:'Courier New',monospace;font-size:0.55rem;color:#0aa;text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 3px rgba(0,255,255,0.2)}
+  .btn{display:inline-block;padding:7px 14px;font-size:0.68rem;font-weight:700;cursor:default;font-family:'Courier New',monospace;letter-spacing:1px}
+  .btn-neon{background:transparent;color:#0ff;border:1px solid #0ff;box-shadow:0 0 6px rgba(0,255,255,0.2)}
+  .btn-pink{background:transparent;color:#f0f;border:1px solid #f0f;box-shadow:0 0 6px rgba(255,0,255,0.2)}
+  .btn-dim{background:transparent;color:#447;border:1px solid #335}
+  .btn-sel{background:#0ff;color:#000;border:1px solid #0ff;box-shadow:0 0 10px rgba(0,255,255,0.4)}
+  .btn-grp{display:flex;gap:5px;flex-wrap:wrap}
+
+  .grid{display:grid;gap:4px}
+  .g5x4{grid-template-columns:repeat(5,1fr)}
+  .card{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;font-family:'Courier New',monospace}
+  .c-back{background:#0E0E18;border:1px solid #252540;color:#303050}
+  .c-open{background:#0a0a14;border:1px solid #f0f;color:#f0f;text-shadow:0 0 6px rgba(255,0,255,0.5)}
+  .c-match{background:#0a0a14;border:1px solid #39FF14;color:#39FF14;text-shadow:0 0 6px rgba(57,255,20,0.4);box-shadow:0 0 8px rgba(57,255,20,0.15)}
+
+  .stat{font-family:'Courier New',monospace;font-size:0.6rem;color:#333}
+  .stat b{color:#0ff;text-shadow:0 0 3px rgba(0,255,255,0.3)}
+
+  .res-box{text-align:center;padding:12px 10px;border:1px solid #1a1a2e;background:#08080F;flex:1}
+  .res-box .num{font-family:'Courier New',monospace;font-size:1.3rem;font-weight:700;color:#0ff;text-shadow:0 0 8px rgba(0,255,255,0.4)}
+  .res-box .rlbl{font-family:'Courier New',monospace;font-size:0.5rem;color:#2a2a3e;text-transform:uppercase;letter-spacing:2px}
+
+  .progress-bar{background:#111;height:3px;width:100%;overflow:hidden}
+  .progress-fill{background:linear-gradient(90deg,#0ff,#f0f);height:100%}
+
+  .score-panel{border:1px solid #1a1a2e;padding:8px 10px;font-family:'Courier New',monospace}
+  .score-row{display:flex;justify-content:space-between;font-size:0.62rem;padding:2px 0}
+  .score-row .k{color:#557}
+  .score-row .v{color:#0ff;text-shadow:0 0 3px rgba(0,255,255,0.3)}
+
+  /* ---- descriptions section (outside frames) ---- */
+  .descriptions{margin-top:32px;max-width:1100px;width:100%;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+  .desc-card{width:340px;background:#F8F8F8;border:1px solid #E0E0E0;border-radius:6px;padding:16px;font-size:0.8rem;color:#444;line-height:1.6}
+  .desc-card .d-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#222;color:#0ff;font-size:0.65rem;font-weight:700;margin-right:6px}
+  .desc-card .d-title{font-weight:700;color:#222;font-size:0.85rem;margin-bottom:6px}
+
+  .notes{margin-top:28px;max-width:1080px;background:#F8F8F8;border:1px solid #E0E0E0;border-radius:6px;padding:18px 24px;line-height:1.6;font-size:0.82rem;color:#555}
+</style>
+</head>
+<body>
+
+<h1>Storyboard B &mdash; Dark Neon Style</h1>
+<p class="persona"><b>Persona: Robert, 65 years old.</b> Retired math teacher, methodical, enjoys puzzles. He wants to track his scores and play at increasing difficulty.</p>
+
+<div class="row">
+
+  <!-- SETUP -->
+  <div class="col">
+    <div class="step-num">1</div>
+    <div class="step-title">Setup Screen</div>
+    <div class="frame">
+      <div class="header">
+        <span class="logo">MEM//MATCH</span>
+        <span class="stat"><b>SYS READY</b></span>
+      </div>
+      <div class="bod">
+        <div class="lbl">&gt; theme_select</div>
+        <div class="btn-grp">
+          <span class="btn btn-dim">COLORS</span>
+          <span class="btn btn-dim">ANIMALS</span>
+          <span class="btn btn-dim">SPORTS</span>
+          <span class="btn btn-sel">LOGOS</span>
+        </div>
+        <div class="lbl" style="margin-top:4px">&gt; diff_level</div>
+        <div class="btn-grp">
+          <span class="btn btn-dim">EASY</span>
+          <span class="btn btn-dim">MEDIUM</span>
+          <span class="btn btn-neon">HARD [10]</span>
+        </div>
+        <div class="score-panel" style="margin-top:4px">
+          <div class="lbl" style="color:#39FF14;text-shadow:0 0 3px rgba(57,255,20,0.2);margin-bottom:4px">&gt; high_scores</div>
+          <div class="score-row"><span class="k">EASY</span><span class="v">940</span></div>
+          <div class="score-row"><span class="k">MEDIUM</span><span class="v">1,820</span></div>
+          <div class="score-row"><span class="k">HARD</span><span class="v">2,810</span></div>
+        </div>
+        <div style="margin-top:auto">
+          <span class="btn btn-neon" style="width:100%;text-align:center;display:block;padding:10px;letter-spacing:3px">&gt;&gt; EXECUTE &lt;&lt;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMEPLAY -->
+  <div class="col">
+    <div class="step-num">2</div>
+    <div class="step-title">Gameplay</div>
+    <div class="frame">
+      <div class="header" style="padding:8px 14px">
+        <span class="btn btn-pink" style="padding:3px 8px;font-size:0.5rem">HARD</span>
+        <div style="display:flex;gap:10px">
+          <span class="stat">T:<b>1:42</b></span>
+          <span class="stat">M:<b>14</b></span>
+          <span class="stat">EST:<b style="color:#39FF14;text-shadow:0 0 3px rgba(57,255,20,0.3)">2,650</b></span>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+      <div class="bod" style="padding:8px">
+        <div style="font-family:'Courier New',monospace;font-size:0.5rem;color:#222;text-align:center;letter-spacing:2px">PAIRS: 4/10</div>
+        <div class="grid g5x4" style="flex:1">
+          <div class="card c-match">&#10003;</div>
+          <div class="card c-back">?</div>
+          <div class="card c-open">&#9632;</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-match">&#10003;</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-open">&#9632;</div>
+          <div class="card c-match">&#10003;</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+          <div class="card c-match">&#10003;</div>
+          <div class="card c-back">?</div>
+          <div class="card c-back">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END -->
+  <div class="col">
+    <div class="step-num">3</div>
+    <div class="step-title">Game Over</div>
+    <div class="frame">
+      <div class="header"><span class="logo">MEM//MATCH</span></div>
+      <div class="bod" style="align-items:center;justify-content:center;gap:10px;text-align:center">
+        <p style="font-family:'Courier New',monospace;font-size:0.5rem;color:#39FF14;letter-spacing:4px">&gt;&gt; MISSION COMPLETE &lt;&lt;</p>
+        <p style="font-family:'Courier New',monospace;font-size:1.1rem;color:#0ff;letter-spacing:3px;text-shadow:0 0 8px rgba(0,255,255,0.5)">GAME CLEAR</p>
+        <div style="display:flex;gap:6px;width:100%">
+          <div class="res-box"><div class="rlbl">TIME</div><div class="num">2:34</div></div>
+          <div class="res-box"><div class="rlbl">MOVES</div><div class="num">22</div></div>
+          <div class="res-box" style="border-color:#f0f"><div class="rlbl">SCORE</div><div class="num" style="color:#f0f;text-shadow:0 0 8px rgba(255,0,255,0.4)">2,890</div></div>
+        </div>
+        <div style="border:1px solid #39FF14;padding:5px 14px;font-family:'Courier New',monospace;font-size:0.55rem;color:#39FF14;letter-spacing:2px;box-shadow:0 0 6px rgba(57,255,20,0.15)">NEW_RECORD</div>
+        <p style="font-family:'Courier New',monospace;font-size:0.55rem;color:#2a2a3e">prev: 2,810</p>
+        <div style="display:flex;gap:6px;margin-top:4px">
+          <span class="btn btn-neon">RETRY</span>
+          <span class="btn btn-dim">CONFIG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DESCRIPTIONS SECTION -->
+<div class="descriptions">
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">1</span> Setup Screen</div>
+    Robert sees a terminal-style interface with glowing cyan text. His high scores are displayed in a neon panel. However, the tiny neon text on the pure black background is hard to read. Unselected buttons are nearly invisible, and the &ldquo;EXECUTE&rdquo; label feels uninviting for a casual game.
+  </div>
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">2</span> Gameplay</div>
+    Robert plays on Hard mode (5&times;4 grid). Matched cards glow green which stands out, but the unflipped cards are nearly invisible against the black background. Scanning the grid for untried positions is straining on his eyes. The abbreviated stat labels (T, M, EST) save space but hurt clarity.
+  </div>
+  <div class="desc-card">
+    <div class="d-title"><span class="d-num">3</span> Game Over</div>
+    Robert beats his previous best score. The &ldquo;NEW_RECORD&rdquo; banner is present but small and cold. The dark screen with neon glow has no warmth or celebration &mdash; it feels like a system log, not a personal achievement. Score comparison is functional but not satisfying.
+  </div>
+</div>
+
+<div class="notes">
+  <b style="color:#222">Design Notes:</b> This storyboard uses a black background, cyan/magenta neon accents, and Courier monospace font inside each screen. <b>Strengths:</b> strong game identity, matched cards are clearly distinct with green glow, score tracking is always visible. <b style="color:#C00">Weaknesses:</b> dark background causes eye strain during extended play, neon text is hard to read for older users, unflipped cards nearly disappear, the cold terminal aesthetic feels impersonal and uninviting for a casual memory game.
+</div>
+
+</body>
+</html>

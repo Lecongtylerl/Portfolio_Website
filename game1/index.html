@@ -9,16 +9,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #070A14;
-      --surface: #0D1120;
-      --surf2:   #141828;
-      --border:  #1C2236;
+      --bg:      transparent;
+      --surface: rgba(13,17,32,0.88);
+      --surf2:   rgba(20,24,40,0.88);
+      --border:  rgba(28,34,54,0.92);
       --primary: #FF4655;
       --accent:  #FFD700;
       --success: #3DFF91;
       --cyan:    #22D3EE;
       --text:    #DEE1F0;
-      --muted:   #404660;
+      --muted:   #8090B0;
       --px: 'Press Start 2P', monospace;
       --mo: 'Space Mono', monospace;
     }
@@ -27,14 +27,10 @@
 
     body {
       font-family: var(--mo);
-      background:
-        radial-gradient(ellipse at 18% 28%, rgba(124,58,237,0.08) 0%, transparent 52%),
-        radial-gradient(ellipse at 82% 72%, rgba(255,70,85,0.05) 0%, transparent 52%),
-        radial-gradient(ellipse at 50% 100%, rgba(34,211,238,0.04) 0%, transparent 45%),
-        var(--bg);
+      background: transparent;
       color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
+      height: 100vh;
+      overflow: hidden;
     }
 
     /* full-screen particle canvas sits behind everything */
@@ -48,118 +44,91 @@
     body::after {
       content: '';
       position: fixed; inset: 0; pointer-events: none; z-index: 1;
-      background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.65) 100%);
+      background: radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0,0,0,0.3) 100%);
     }
 
-    #app { position: relative; z-index: 2; min-height: 100vh; }
+    #app { position: relative; z-index: 2; height: 100vh; }
 
     .screen {
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
       display: flex; flex-direction: column; align-items: stretch;
     }
 
     /* ═══════════════════════════════════════
-       SHARED SIDE BLOCKS
+       (side panels removed — stats in header)
     ═══════════════════════════════════════ */
-    .side-col {
-      width: 168px; flex-shrink: 0;
-      padding: 32px 14px;
-      display: flex; flex-direction: column; gap: 20px;
-      border-right: 1px solid var(--border);
-    }
-    .side-col.right { border-right: none; border-left: 1px solid var(--border); }
-
-    .side-block { display: flex; flex-direction: column; gap: 10px; }
-
-    .side-lbl {
-      font-family: var(--px); font-size: 0.38rem;
-      color: var(--muted); letter-spacing: 3px;
-      border-bottom: 1px solid var(--border); padding-bottom: 6px;
-    }
-
-    .side-val {
-      font-family: var(--px); font-size: 0.72rem;
-      color: var(--accent);
-    }
-    .side-val.dim { color: var(--muted); font-size: 0.55rem; }
-
-    .score-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .score-key { font-size: 0.55rem; color: var(--muted); }
-    .score-pts { font-family: var(--px); font-size: 0.5rem; color: var(--accent); }
-
-    /* blinking INSERT COIN */
-    .insert-coin {
-      font-family: var(--px); font-size: 0.36rem;
-      color: var(--primary); letter-spacing: 2px;
-      animation: blink 1s steps(1) infinite;
-      text-align: center; margin-top: 12px;
-    }
-
-    /* pairs dots grid */
-    .pairs-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 5px;
-    }
-    .pair-dot {
-      aspect-ratio: 1;
-      background: var(--border);
-      border: 1px solid var(--border);
-      transition: background 0.35s ease, border-color 0.35s ease, transform 0.2s ease;
-    }
-    .pair-dot.found { transform: scale(1.05); }
-
-    @media (max-width: 900px) {
-      .side-col { display: none; }
-    }
 
     /* ═══════════════════════════════════════
        SETUP SCREEN
     ═══════════════════════════════════════ */
     .setup-body {
-      display: flex; flex: 1; align-items: flex-start;
+      display: flex; flex: 1; align-items: center; justify-content: center;
+      min-height: 0;
     }
 
     .setup-main {
       flex: 1;
       display: flex; flex-direction: column; align-items: center;
-      gap: 22px; padding: 32px 20px 44px;
+      gap: 14px; padding: 14px 20px 10px;
+      max-width: 660px;
     }
 
     /* hero */
     .s-hero { text-align: center; }
     .s-logo {
       font-family: var(--px);
-      font-size: 2.6rem; color: var(--accent); display: block;
+      font-size: 2rem; color: var(--accent); display: block;
       text-shadow: 4px 4px 0 #7A6300, 8px 8px 0 rgba(0,0,0,0.4);
       animation: pbounce 1.15s steps(4) infinite;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
     @keyframes pbounce {
       0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-11px); }
+      50%      { transform: translateY(-8px); }
     }
     .s-title {
-      font-family: var(--px); font-size: 1.5rem;
+      font-family: var(--px); font-size: 1.2rem;
       letter-spacing: 4px; text-shadow: 3px 3px 0 #000;
     }
-    .s-sub {
-      color: var(--muted); font-size: 0.71rem; margin-top: 10px;
-      font-style: italic; letter-spacing: 1px;
+
+    /* info row — How to Play + High Scores */
+    .info-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; width: 100%;
     }
+    .info-box {
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      padding: 10px 14px;
+      box-shadow: 4px 4px 0 #000, 0 0 18px rgba(255,215,0,0.12);
+    }
+    .info-box.hs { border-color: var(--primary); box-shadow: 4px 4px 0 #000, 0 0 18px rgba(255,70,85,0.15); }
+    .info-title {
+      font-family: var(--px); font-size: 0.5rem;
+      color: var(--accent); letter-spacing: 2px;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+    }
+    .info-box.hs .info-title { color: var(--primary); }
+    .info-body { font-size: 0.6rem; color: var(--muted); line-height: 1.8; }
+    .hs-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .hs-key { font-size: 0.55rem; color: var(--muted); }
+    .hs-pts { font-family: var(--px); font-size: 0.45rem; color: var(--accent); }
 
     /* option boxes */
     .options-row {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 14px; width: 100%; max-width: 600px;
+      gap: 12px; width: 100%;
     }
     @media (max-width: 560px) { .options-row { grid-template-columns: 1fr; } }
 
     .opt-box {
       background: var(--surface);
       border: 2px solid var(--border);
-      padding: 16px; box-shadow: 4px 4px 0 #000;
+      padding: 12px; box-shadow: 4px 4px 0 #000;
     }
     .opt-lbl {
       font-family: var(--px); font-size: 0.4rem;
@@ -192,7 +161,7 @@
     .level-grid { display: flex; flex-direction: column; gap: 7px; }
     .level-btn {
       background: var(--surf2);
-      border: 2px solid var(--border); padding: 12px 13px;
+      border: 2px solid var(--border); padding: 8px 11px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: space-between;
       color: var(--text); font-family: var(--mo);
@@ -214,9 +183,9 @@
     .pip-hard   { background: var(--primary); }
 
     .start-btn {
-      font-family: var(--px); font-size: 0.68rem;
+      font-family: var(--px); font-size: 0.65rem;
       background: var(--primary); color: #fff;
-      border: 2px solid #000; padding: 15px 38px;
+      border: 2px solid #000; padding: 12px 34px;
       cursor: pointer; box-shadow: 5px 5px 0 #000; letter-spacing: 2px;
       transition: transform 0.05s, box-shadow 0.05s, filter 0.1s;
     }
@@ -236,8 +205,8 @@
     .game-screen { justify-content: flex-start; }
 
     .g-header {
-      width: 100%; background: rgba(13,17,32,0.96);
-      backdrop-filter: blur(8px);
+      width: 100%; background: rgba(13,17,32,0.88);
+      backdrop-filter: blur(12px);
       border-bottom: 2px solid var(--border);
       padding: 0 18px; height: 52px;
       display: flex; align-items: center; justify-content: space-between;
@@ -283,15 +252,16 @@
     }
 
     /* 3-column game body */
-    .game-body { display: flex; flex: 1; width: 100%; }
+    .game-body { display: flex; flex: 1; width: 100%; min-height: 0; overflow: hidden; align-items: center; justify-content: center; }
 
     /* card grid (middle column) */
     .card-grid {
-      flex: 1; display: grid; gap: 10px;
-      padding: 14px 12px; align-content: center;
+      display: grid; gap: 8px;
+      padding: 10px 12px; align-content: center; justify-content: center;
+      margin: auto;
     }
-    .cols-4 { grid-template-columns: repeat(4,1fr); }
-    .cols-5 { grid-template-columns: repeat(5,1fr); }
+    .cols-4 { grid-template-columns: repeat(4, minmax(0, 100px)); }
+    .cols-5 { grid-template-columns: repeat(5, minmax(0, 88px)); }
 
     /* CARDS */
     .card {
@@ -320,10 +290,14 @@
     }
 
     /* match pulse */
-    .card.matched { animation: matchPop 0.3s ease-out; }
+    .card.matched {
+      animation: matchPop 0.5s ease-out;
+      filter: drop-shadow(0 0 10px rgba(61,255,145,0.6));
+    }
     @keyframes matchPop {
       0%   { transform: scale(1); }
-      50%  { transform: scale(1.07); }
+      35%  { transform: scale(1.15); }
+      60%  { transform: scale(0.95); }
       100% { transform: scale(1); }
     }
 
@@ -362,13 +336,19 @@
     }
     .card-front svg { width: 72%; height: 72%; }
 
-    /* matched: dim + flash */
+    /* matched: green glow + checkmark */
     .card.matched .card-front {
-      animation: matchFlash 0.45s ease-out forwards;
+      border-color: var(--success);
+      box-shadow: 0 0 14px rgba(61,255,145,0.5), inset 0 0 20px rgba(61,255,145,0.15);
     }
-    @keyframes matchFlash {
-      0%   { filter: brightness(1.7); }
-      100% { filter: brightness(0.55) saturate(0.45); }
+    .card.matched .card-front::after {
+      content: '✓';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 900;
+      color: #fff;
+      background: rgba(61,255,145,0.25);
+      text-shadow: 0 0 8px rgba(61,255,145,0.8);
     }
 
     /* ═══════════════════════════════════════
@@ -376,10 +356,11 @@
     ═══════════════════════════════════════ */
     .result-wrap {
       display: flex; flex-direction: column; align-items: center;
-      gap: 22px; padding: 52px 20px; max-width: 480px; width: 100%;
+      gap: 18px; padding: 30px 20px; max-width: 480px; width: 100%;
       margin: auto; text-align: center;
     }
-    .r-trophy { font-size: 4.5rem; animation: pop 0.35s steps(5) forwards; }
+    .r-trophy { width: 100px; height: 100px; animation: pop 0.35s steps(5) forwards; }
+    .r-trophy svg { width: 100%; height: 100%; image-rendering: pixelated; }
     @keyframes pop {
       0%   { transform: scale(0); opacity: 0; }
       60%  { transform: scale(1.2); opacity: 1; }
@@ -432,9 +413,11 @@
     .btn-settings:active { transform: translate(3px,3px); box-shadow: 0 0 0; }
 
     @media (max-width: 520px) {
-      .s-logo  { font-size: 1.8rem; }
-      .s-title { font-size: 1rem; }
-      .card-grid { gap: 6px; padding: 8px; }
+      .s-logo  { font-size: 1.4rem; }
+      .s-title { font-size: 0.85rem; }
+      .setup-main { gap: 10px; padding: 8px 12px; }
+      .info-row { grid-template-columns: 1fr; gap: 8px; }
+      .card-grid { gap: 5px; padding: 6px; }
     }
   </style>
 </head>
@@ -568,6 +551,157 @@ const ANIMALS = {
 };
 
 /* ══════════════════════════════════════════
+   COMPANY LOGO PIXEL ART
+══════════════════════════════════════════ */
+const LOGOS = {
+  apple: pxSVG(
+    [[0,0,0,1,0,0,0,0],
+     [0,0,1,0,0,0,0,0],
+     [0,2,2,2,2,2,0,0],
+     [2,2,2,2,2,2,2,0],
+     [2,2,2,2,2,2,2,0],
+     [2,2,2,2,2,2,0,0],
+     [0,2,2,2,2,0,0,0],
+     [0,0,2,2,0,0,0,0]],
+    {1:'#4CAF50',2:'#A3AAAE'}
+  ),
+  nike: pxSVG(
+    [[0,0,0,0,0,0,0,1],
+     [0,0,0,0,0,0,1,1],
+     [0,0,0,0,0,1,1,0],
+     [0,0,0,0,1,1,0,0],
+     [1,0,0,1,1,0,0,0],
+     [1,1,1,1,0,0,0,0],
+     [0,1,1,0,0,0,0,0],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#FFFFFF'}
+  ),
+  mcdonalds: pxSVG(
+    [[1,1,0,0,0,0,1,1],
+     [1,1,1,0,0,1,1,1],
+     [1,1,1,1,1,1,1,1],
+     [1,0,1,1,1,1,0,1],
+     [1,0,0,1,1,0,0,1],
+     [1,0,0,0,0,0,0,1],
+     [1,0,0,0,0,0,0,1],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#FFC72C'}
+  ),
+  microsoft: pxSVG(
+    [[1,1,1,0,2,2,2,0],
+     [1,1,1,0,2,2,2,0],
+     [1,1,1,0,2,2,2,0],
+     [0,0,0,0,0,0,0,0],
+     [3,3,3,0,4,4,4,0],
+     [3,3,3,0,4,4,4,0],
+     [3,3,3,0,4,4,4,0],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#F25022',2:'#7FBA00',3:'#00A4EF',4:'#FFB900'}
+  ),
+  netflix: pxSVG(
+    [[1,0,0,0,0,0,1,0],
+     [1,1,0,0,0,0,1,0],
+     [1,1,1,0,0,0,1,0],
+     [1,0,1,1,0,0,1,0],
+     [1,0,0,1,1,0,1,0],
+     [1,0,0,0,1,1,1,0],
+     [1,0,0,0,0,1,1,0],
+     [1,0,0,0,0,0,1,0]],
+    {1:'#E50914'}
+  ),
+  youtube: pxSVG(
+    [[0,0,0,0,0,0,0,0],
+     [0,0,0,0,0,0,0,0],
+     [0,0,1,0,0,0,0,0],
+     [0,0,1,1,0,0,0,0],
+     [0,0,1,1,1,0,0,0],
+     [0,0,1,1,0,0,0,0],
+     [0,0,1,0,0,0,0,0],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#FFFFFF'}
+  ),
+  tesla: pxSVG(
+    [[1,1,1,1,1,1,1,1],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,1,1,0,0,0]],
+    {1:'#CC0000'}
+  ),
+  google: pxSVG(
+    [[0,1,1,1,1,1,0,0],
+     [1,1,0,0,0,0,0,0],
+     [2,0,0,0,0,0,0,0],
+     [2,0,0,0,3,3,3,0],
+     [4,0,0,0,0,0,3,0],
+     [4,4,0,0,0,0,3,0],
+     [0,1,1,1,1,1,0,0],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#EA4335',2:'#FBBC05',3:'#4285F4',4:'#34A853'}
+  ),
+  amazon: pxSVG(
+    [[0,0,0,0,0,0,0,0],
+     [0,1,1,1,1,1,1,0],
+     [1,0,0,0,0,0,0,1],
+     [0,0,0,0,0,0,0,1],
+     [0,1,1,1,1,1,1,0],
+     [0,0,0,0,0,0,0,0],
+     [0,0,0,1,1,0,0,0],
+     [0,0,0,0,1,1,1,0]],
+    {1:'#FF9900'}
+  ),
+  spotify: pxSVG(
+    [[0,0,0,0,0,0,0,0],
+     [1,1,1,1,1,1,1,0],
+     [0,0,0,0,0,0,0,0],
+     [0,1,1,1,1,1,0,0],
+     [0,0,0,0,0,0,0,0],
+     [0,0,1,1,1,0,0,0],
+     [0,0,0,0,0,0,0,0],
+     [0,0,0,0,0,0,0,0]],
+    {1:'#1DB954'}
+  ),
+};
+
+/* ══════════════════════════════════════════
+   RESULT SCREEN PIXEL ART
+══════════════════════════════════════════ */
+const PX_TROPHY = pxSVG(
+  [[0,0,0,1,1,1,1,1,1,0,0,0],
+   [0,0,1,2,2,2,2,2,2,1,0,0],
+   [0,1,2,2,2,2,2,2,2,2,1,0],
+   [1,1,2,2,3,2,2,3,2,2,1,1],
+   [1,1,2,2,2,2,2,2,2,2,1,1],
+   [0,1,2,2,2,2,2,2,2,2,1,0],
+   [0,0,1,2,2,2,2,2,2,1,0,0],
+   [0,0,0,1,2,2,2,2,1,0,0,0],
+   [0,0,0,0,1,2,2,1,0,0,0,0],
+   [0,0,0,0,1,2,2,1,0,0,0,0],
+   [0,0,0,1,1,1,1,1,1,0,0,0],
+   [0,0,1,1,1,1,1,1,1,1,0,0]],
+  {1:'#B8860B',2:'#FFD700',3:'#FFF8DC'}
+);
+
+const PX_STAR = pxSVG(
+  [[0,0,0,0,0,1,1,0,0,0,0,0],
+   [0,0,0,0,1,2,2,1,0,0,0,0],
+   [0,0,0,0,1,2,2,1,0,0,0,0],
+   [1,1,1,1,1,2,2,1,1,1,1,1],
+   [0,1,2,2,2,2,2,2,2,2,1,0],
+   [0,0,1,2,2,2,2,2,2,1,0,0],
+   [0,0,0,1,2,2,2,2,1,0,0,0],
+   [0,0,1,2,2,2,2,2,2,1,0,0],
+   [0,1,2,2,1,0,0,1,2,2,1,0],
+   [1,2,2,1,0,0,0,0,1,2,2,1],
+   [1,2,1,0,0,0,0,0,0,1,2,1],
+   [1,1,0,0,0,0,0,0,0,0,1,1]],
+  {1:'#C0820B',2:'#FFBF00'}
+);
+
+/* ══════════════════════════════════════════
    THEME DATA
 ══════════════════════════════════════════ */
 const THEMES = {
@@ -598,36 +732,36 @@ const THEMES = {
       {type:'a',key:'fish',    bg:'#030E1A'},
     ],
   },
-  arcade: {
-    label:'ARCADE',
-    preview:['#DC2626','#D97706','#2563EB','#16A34A'],
+  sports: {
+    label:'SPORTS',
+    preview:['#2E7D32','#E65100','#5D4037','#1565C0'],
     tiles:[
-      {type:'s',sym:'★',bg:'#DC2626',fg:'#fff'},
-      {type:'s',sym:'◆',bg:'#D97706',fg:'#fff'},
-      {type:'s',sym:'●',bg:'#2563EB',fg:'#fff'},
-      {type:'s',sym:'▲',bg:'#16A34A',fg:'#fff'},
-      {type:'s',sym:'♠',bg:'#7C3AED',fg:'#fff'},
-      {type:'s',sym:'♥',bg:'#DB2777',fg:'#fff'},
-      {type:'s',sym:'▶',bg:'#EA580C',fg:'#fff'},
-      {type:'s',sym:'◉',bg:'#0891B2',fg:'#fff'},
-      {type:'s',sym:'▼',bg:'#3F6212',fg:'#fff'},
-      {type:'s',sym:'◀',bg:'#6D28D9',fg:'#fff'},
+      {type:'s',sym:'⚽',bg:'#2E7D32',fg:'#fff'},
+      {type:'s',sym:'🏀',bg:'#E65100',fg:'#fff'},
+      {type:'s',sym:'🏈',bg:'#5D4037',fg:'#fff'},
+      {type:'s',sym:'⚾',bg:'#1565C0',fg:'#fff'},
+      {type:'s',sym:'🎾',bg:'#9E9D24',fg:'#fff'},
+      {type:'s',sym:'🏐',bg:'#00838F',fg:'#fff'},
+      {type:'s',sym:'🏒',bg:'#37474F',fg:'#fff'},
+      {type:'s',sym:'🎱',bg:'#1B5E20',fg:'#fff'},
+      {type:'s',sym:'🏓',bg:'#C62828',fg:'#fff'},
+      {type:'s',sym:'🥊',bg:'#AD1457',fg:'#fff'},
     ],
   },
-  cyber: {
-    label:'CYBER',
-    preview:['#001A0A','#00091A','#1A0018','#1A1500'],
+  logos: {
+    label:'LOGOS',
+    preview:['#1C1C1E','#111111','#DA291C','#0078D4'],
     tiles:[
-      {type:'s',sym:'>',bg:'#001A0A',fg:'#00FF41'},
-      {type:'s',sym:'<',bg:'#00091A',fg:'#4FC3F7'},
-      {type:'s',sym:'/',bg:'#1A0018',fg:'#FF00AA'},
-      {type:'s',sym:'#',bg:'#1A1500',fg:'#FFD700'},
-      {type:'s',sym:'%',bg:'#1A0003',fg:'#FF4655'},
-      {type:'s',sym:'$',bg:'#001A1A',fg:'#00FFFF'},
-      {type:'s',sym:'@',bg:'#0D001A',fg:'#BF00FF'},
-      {type:'s',sym:'!',bg:'#1A0A00',fg:'#FF8C00'},
-      {type:'s',sym:'+',bg:'#001A06',fg:'#39FF14'},
-      {type:'s',sym:'=',bg:'#001014',fg:'#7DF9FF'},
+      {type:'l',key:'apple',     bg:'#1C1C1E'},
+      {type:'l',key:'nike',      bg:'#111111'},
+      {type:'l',key:'mcdonalds', bg:'#DA291C'},
+      {type:'l',key:'microsoft', bg:'#0078D4'},
+      {type:'l',key:'netflix',   bg:'#000000'},
+      {type:'l',key:'youtube',   bg:'#FF0000'},
+      {type:'l',key:'tesla',     bg:'#171717'},
+      {type:'l',key:'google',    bg:'#202124'},
+      {type:'l',key:'amazon',    bg:'#232F3E'},
+      {type:'l',key:'spotify',   bg:'#191414'},
     ],
   },
 };
@@ -669,6 +803,7 @@ function calcScore(level,time,moves){
 function tileHTML(card){
   if(card.type==='c') return '';
   if(card.type==='a') return ANIMALS[card.key]||'';
+  if(card.type==='l') return LOGOS[card.key]||'';
   return `<span class="tile-sym" style="color:${card.fg||'#fff'}">${card.sym}</span>`;
 }
 
@@ -753,17 +888,6 @@ function updateProgress(){
   if(pf) pf.style.width=(found/pairs*100)+'%';
   if(pl) pl.textContent=found+' / '+pairs+' PAIRS FOUND';
 
-  // update pairs dots in right panel
-  const pd=document.querySelectorAll('.pair-dot');
-  const matchedBgs=new Set([...state.matched].map(i=>state.cards[i]?.bg));
-  pd.forEach((dot,i)=>{
-    const tile=THEMES[state.theme].tiles[i];
-    if(tile&&matchedBgs.has(tile.bg)){
-      dot.style.background=tile.bg; dot.style.borderColor=tile.bg;
-      dot.classList.add('found');
-    }
-  });
-  // update score estimate
   if(state.moves>0){
     const se=document.getElementById('se');
     if(se) se.textContent=calcScore(state.level,state.time,state.moves);
@@ -801,48 +925,38 @@ function renderSetup(){
     </button>`;
   }).join('');
 
-  // high scores for right panel
   const scoreRows=['easy','medium','hard'].map(k=>{
     const b=state.best[k];
-    return `<div class="score-row">
-      <span class="score-key">${k.toUpperCase()}</span>
-      <span class="score-pts">${b?b.score+' pts':'---'}</span>
+    return `<div class="hs-row">
+      <span class="hs-key">${k.toUpperCase()}</span>
+      <span class="hs-pts">${b?b.score+' pts':'---'}</span>
     </div>`;
   }).join('');
 
   return `<div class="screen">
     <div class="setup-body">
-
-      <!-- LEFT SIDE -->
-      <aside class="side-col" aria-hidden="true">
-        <div class="side-block">
-          <div class="side-lbl">HOW TO PLAY</div>
-          <div style="font-size:0.6rem;color:var(--muted);line-height:2">
-            1. Pick a theme<br>
-            2. Pick difficulty<br>
-            3. Flip two cards<br>
-            4. Find all pairs!
-          </div>
-        </div>
-        <div class="side-block" style="margin-top:auto">
-          <div class="side-lbl">SCORING</div>
-          <div style="font-size:0.55rem;color:var(--muted);line-height:2">
-            Fewer moves<br>
-            = higher score.<br>
-            Faster time<br>
-            = bonus pts.
-          </div>
-        </div>
-        <div class="insert-coin">INSERT COIN</div>
-      </aside>
-
-      <!-- MAIN -->
       <main class="setup-main">
         <div class="s-hero">
           <span class="s-logo">?</span>
           <h1 class="s-title">MEM MATCH</h1>
-          <p class="s-sub">// flip cards &middot; find pairs &middot; beat your score</p>
         </div>
+
+        <div class="info-row">
+          <div class="info-box">
+            <div class="info-title">[ ? ] HOW TO PLAY</div>
+            <div class="info-body">
+              1. Pick a theme &amp; difficulty<br>
+              2. Flip two cards per turn<br>
+              3. Match all pairs to win!<br>
+              4. Fewer moves = higher score
+            </div>
+          </div>
+          <div class="info-box hs">
+            <div class="info-title">[ ★ ] HIGH SCORES</div>
+            <div class="info-body">${scoreRows}</div>
+          </div>
+        </div>
+
         <div class="options-row">
           <div class="opt-box">
             <span class="opt-lbl">-- THEME --</span>
@@ -856,24 +970,6 @@ function renderSetup(){
         <button class="start-btn" id="start-btn">[ START GAME ]</button>
         <a class="back-a" href="../index.html">&larr; back to portfolio</a>
       </main>
-
-      <!-- RIGHT SIDE -->
-      <aside class="side-col right" aria-hidden="true">
-        <div class="side-block">
-          <div class="side-lbl">HIGH SCORES</div>
-          ${scoreRows}
-        </div>
-        <div class="side-block" style="margin-top:16px">
-          <div class="side-lbl">THEMES</div>
-          <div style="font-size:0.55rem;color:var(--muted);line-height:2">
-            COLORS — pure hue<br>
-            ANIMALS — pixel art<br>
-            ARCADE — symbols<br>
-            CYBER — terminal
-          </div>
-        </div>
-      </aside>
-
     </div>
   </div>`;
 }
@@ -913,50 +1009,24 @@ function renderGame(){
       <div class="g-stats">
         <div class="g-stat"><span class="g-stat-icon">⏱</span><span class="g-stat-val" id="tv">${fmt(state.time)}</span></div>
         <div class="g-stat"><span class="g-stat-icon">↺</span><span class="g-stat-val" id="mv">${state.moves}</span></div>
+        <div class="g-stat"><span class="g-stat-icon">★</span><span class="g-stat-val" id="se">---</span></div>
       </div>
     </header>
     <div class="g-prog"><div class="g-prog-fill" id="pf" style="width:${found/pairs*100}%"></div></div>
     <p class="g-prog-label" id="pl">${found} / ${pairs} PAIRS FOUND</p>
 
     <div class="game-body">
-
-      <!-- LEFT PANEL -->
-      <aside class="side-col">
-        <div class="side-block">
-          <div class="side-lbl">SCORE EST.</div>
-          <div class="side-val" id="se">---</div>
-        </div>
-        <div class="side-block">
-          <div class="side-lbl">YOUR BEST</div>
-          <div class="side-val ${bestScore?'':'dim'}">${bestScore?bestScore+' pts':'no record'}</div>
-        </div>
-      </aside>
-
-      <!-- CARD GRID -->
       <div class="card-grid cols-${lvl.cols}">${cards}</div>
-
-      <!-- RIGHT PANEL -->
-      <aside class="side-col right">
-        <div class="side-block">
-          <div class="side-lbl">PAIRS FOUND</div>
-          <div class="pairs-grid">${dots}</div>
-        </div>
-        <div class="side-block" style="margin-top:8px">
-          <div class="side-lbl">LEVEL</div>
-          <div class="side-val" style="font-size:0.55rem">${lvl.label}</div>
-          <div style="font-size:0.55rem;color:var(--muted)">${lvl.desc}</div>
-        </div>
-      </aside>
-
     </div>
   </div>`;
 }
 
 function renderResult(){
   const r=state.result;
+  const icon=r.isNew?PX_TROPHY:PX_STAR;
   return `<div class="screen">
     <div class="result-wrap">
-      <span class="r-trophy">${r.isNew?'🏆':'⭐'}</span>
+      <div class="r-trophy">${icon}</div>
       <h1 class="r-title">GAME CLEAR!</h1>
       ${r.isNew?'<span class="r-newbest">*** NEW BEST! ***</span>':''}
       <div class="r-stats">
@@ -1004,42 +1074,257 @@ function attachEvents(){
 (function initBG(){
   const canvas=document.getElementById('bgc');
   const ctx=canvas.getContext('2d');
-  const COLORS=['#FF4655','#FFD700','#3DFF91','#22D3EE','#C084FC','#FB923C'];
+  let W,H,bgImg=null,birds=[],frame=0;
+  const PX=6;
 
-  let W,H,particles=[];
+  // sky: smooth gradient   |   grass: flat solid
+  const SKY_TOP=[50,140,255], SKY_BOT=[190,230,255];
+  const GRASS_Y=0.82;
 
-  function resize(){
+  // detailed pixel art for the grass scene
+  const grassItems=[
+    { name:'cow', xFrac:0.08,
+      pat:[
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,1,0,0,0,0,1,0,0],
+        [0,1,1,1,1,1,1,1,1,0],
+        [1,1,2,1,1,1,2,1,1,1],
+        [1,1,1,1,1,1,1,1,1,0],
+        [0,3,1,1,1,1,1,1,0,0],
+        [0,0,1,1,1,1,1,1,0,0],
+        [0,0,1,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,1,0,0],
+      ],
+      pal:{1:'#F5F5F5',2:'#222',3:'#F8BBD0'}
+    },
+    { name:'tree1', xFrac:0.22,
+      pat:[
+        [0,0,0,0,1,1,0,0,0,0],
+        [0,0,0,1,1,1,1,0,0,0],
+        [0,0,1,1,2,1,1,1,0,0],
+        [0,1,1,1,1,1,2,1,1,0],
+        [1,1,2,1,1,1,1,1,1,1],
+        [0,1,1,1,1,1,1,1,1,0],
+        [0,0,0,0,3,3,0,0,0,0],
+        [0,0,0,0,3,3,0,0,0,0],
+        [0,0,0,0,3,3,0,0,0,0],
+      ],
+      pal:{1:'#2E8B2E',2:'#3CB043',3:'#6B3A1F'}
+    },
+    { name:'chicken', xFrac:0.36,
+      pat:[
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,1,1,0,0,0],
+        [0,0,2,2,2,0,0,0],
+        [0,2,2,3,2,2,0,0],
+        [0,2,2,2,2,2,4,0],
+        [0,0,2,2,2,2,0,0],
+        [0,0,0,5,0,5,0,0],
+        [0,0,0,5,0,5,0,0],
+      ],
+      pal:{1:'#E53935',2:'#FFF',3:'#222',4:'#FF6F00',5:'#FFA726'}
+    },
+    { name:'tree2', xFrac:0.50,
+      pat:[
+        [0,0,0,1,1,1,0,0,0,0],
+        [0,0,1,1,1,1,1,0,0,0],
+        [0,1,1,2,1,1,1,1,0,0],
+        [1,1,1,1,1,2,1,1,1,0],
+        [0,1,1,1,1,1,1,1,0,0],
+        [0,0,1,1,2,1,1,0,0,0],
+        [0,0,0,0,3,3,0,0,0,0],
+        [0,0,0,0,3,3,0,0,0,0],
+        [0,0,0,0,3,3,0,0,0,0],
+      ],
+      pal:{1:'#1B7A1B',2:'#27A627',3:'#5C3317'}
+    },
+    { name:'dog', xFrac:0.64,
+      pat:[
+        [0,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,1,0],
+        [0,1,1,2,2,1,1,0],
+        [0,2,2,2,2,2,2,0],
+        [0,2,3,2,2,3,2,0],
+        [0,2,2,4,4,2,2,0],
+        [0,0,2,2,2,2,0,0],
+        [0,0,2,0,0,2,0,0],
+      ],
+      pal:{1:'#8B5E3C',2:'#D4A76A',3:'#222',4:'#1A0A00'}
+    },
+    { name:'tree3', xFrac:0.76,
+      pat:[
+        [0,0,0,1,1,0,0,0,0,0],
+        [0,0,1,1,2,1,0,0,0,0],
+        [0,1,1,1,1,1,1,0,0,0],
+        [1,1,2,1,1,1,1,1,0,0],
+        [0,1,1,1,1,2,1,0,0,0],
+        [0,0,1,1,1,1,0,0,0,0],
+        [0,0,0,3,3,0,0,0,0,0],
+        [0,0,0,3,3,0,0,0,0,0],
+        [0,0,0,3,3,0,0,0,0,0],
+      ],
+      pal:{1:'#247524',2:'#35A835',3:'#704020'}
+    },
+    { name:'rabbit', xFrac:0.88,
+      pat:[
+        [0,0,1,0,0,1,0,0],
+        [0,0,2,0,0,2,0,0],
+        [0,0,1,0,0,1,0,0],
+        [0,3,3,3,3,3,3,0],
+        [0,3,4,3,3,4,3,0],
+        [0,3,3,5,3,3,3,0],
+        [0,0,3,3,3,3,0,0],
+        [0,0,3,0,0,3,0,0],
+      ],
+      pal:{1:'#D0D0D0',2:'#F5A0B0',3:'#F0F0F0',4:'#E060A0',5:'#F080B0'}
+    },
+  ];
+
+  // flower patterns (stem + petals)
+  const flowerPats=[
+    {pat:[[0,1,0],[1,2,1],[0,1,0],[0,3,0],[0,3,0]], pal:{1:'#E53935',2:'#FFD600',3:'#2E7D32'}},
+    {pat:[[0,1,0],[1,2,1],[0,1,0],[0,3,0],[0,3,0]], pal:{1:'#FF4081',2:'#FFF',3:'#2E7D32'}},
+    {pat:[[0,1,0],[1,2,1],[0,1,0],[0,3,0],[0,3,0]], pal:{1:'#7C4DFF',2:'#E8D0FF',3:'#2E7D32'}},
+    {pat:[[0,1,0],[1,2,1],[0,1,0],[0,3,0],[0,3,0]], pal:{1:'#FFD600',2:'#FFF8E1',3:'#2E7D32'}},
+    {pat:[[0,1,0],[1,2,1],[0,1,0],[0,3,0],[0,3,0]], pal:{1:'#2196F3',2:'#90CAF9',3:'#2E7D32'}},
+  ];
+
+  function drawScene(c,w,h){
+    const cols=Math.ceil(w/PX), rows=Math.ceil(h/PX);
+    const grassRow=Math.floor(h*GRASS_Y/PX);
+
+    // sky — smooth gradient
+    for(let y=0;y<rows;y++){
+      const t=y/rows;
+      if(t>=GRASS_Y){
+        c.fillStyle='#4CAF50';
+      } else {
+        const f=t/GRASS_Y;
+        const r=Math.round(SKY_TOP[0]+(SKY_BOT[0]-SKY_TOP[0])*f);
+        const g=Math.round(SKY_TOP[1]+(SKY_BOT[1]-SKY_TOP[1])*f);
+        const b=Math.round(SKY_TOP[2]+(SKY_BOT[2]-SKY_TOP[2])*f);
+        c.fillStyle=`rgb(${r},${g},${b})`;
+      }
+      for(let x=0;x<cols;x++) c.fillRect(x*PX,y*PX,PX,PX);
+    }
+
+    // pixel sun
+    const sunX=Math.floor(w*0.82/PX)*PX, sunY=Math.floor(h*0.08/PX)*PX;
+    const sunPat=[
+      [0,0,0,1,1,1,1,0,0,0],
+      [0,0,1,2,2,2,2,1,0,0],
+      [0,1,2,2,2,2,2,2,1,0],
+      [1,2,2,2,2,2,2,2,2,1],
+      [1,2,2,2,2,2,2,2,2,1],
+      [1,2,2,2,2,2,2,2,2,1],
+      [1,2,2,2,2,2,2,2,2,1],
+      [0,1,2,2,2,2,2,2,1,0],
+      [0,0,1,2,2,2,2,1,0,0],
+      [0,0,0,1,1,1,1,0,0,0],
+    ];
+    const sunC={1:'#FFC107',2:'#FFE082'};
+    sunPat.forEach((row,ry)=>row.forEach((p,rx)=>{
+      if(p){c.fillStyle=sunC[p];c.fillRect(sunX+rx*PX,sunY+ry*PX,PX,PX);}
+    }));
+
+    // sun rays
+    c.fillStyle='rgba(255,215,0,0.15)';
+    const cxS=sunX+5*PX,cyS=sunY+5*PX;
+    for(let i=0;i<12;i++){
+      const ang=i*Math.PI/6;
+      for(let d=7;d<16;d+=2) c.fillRect(Math.round(cxS+Math.cos(ang)*d*PX),Math.round(cyS+Math.sin(ang)*d*PX),PX,PX);
+    }
+
+    // clouds
+    const cloud=[[0,0,1,1,1,0,0],[0,1,1,1,1,1,0],[1,1,1,1,1,1,1],[0,1,1,1,1,1,0]];
+    const cS=PX*1.4;
+    [[w*0.10,h*0.10],[w*0.40,h*0.06],[w*0.65,h*0.14],[w*0.88,h*0.04]].forEach(([cx2,cy2])=>{
+      cloud.forEach((row,ry)=>row.forEach((p,rx)=>{
+        if(p){c.fillStyle='rgba(255,255,255,0.6)';c.fillRect(Math.round(cx2)+rx*cS,Math.round(cy2)+ry*cS,Math.ceil(cS),Math.ceil(cS));}
+      }));
+    });
+
+    // pixel animals & trees on the grass
+    const aPX=PX*1.1;
+    grassItems.forEach(a=>{
+      const ax=Math.floor(w*a.xFrac);
+      const ay=grassRow*PX - a.pat.length*aPX + aPX;
+      a.pat.forEach((row,ry)=>row.forEach((p,rx)=>{
+        if(p&&a.pal[p]){c.fillStyle=a.pal[p];c.fillRect(Math.round(ax+rx*aPX),Math.round(ay+ry*aPX),Math.ceil(aPX),Math.ceil(aPX));}
+      }));
+    });
+
+    // flowers between items
+    const fPX=PX*0.9;
+    const fPositions=[0.04,0.16,0.31,0.42,0.57,0.70,0.83,0.93];
+    fPositions.forEach((xf,i)=>{
+      const fl=flowerPats[i%flowerPats.length];
+      const fx=Math.floor(w*xf);
+      const fy=grassRow*PX - fl.pat.length*fPX + fPX*2;
+      fl.pat.forEach((row,ry)=>row.forEach((p,rx)=>{
+        if(p&&fl.pal[p]){c.fillStyle=fl.pal[p];c.fillRect(Math.round(fx+rx*fPX),Math.round(fy+ry*fPX),Math.ceil(fPX),Math.ceil(fPX));}
+      }));
+    });
+  }
+
+  function buildBG(){
     W=canvas.width=window.innerWidth;
     H=canvas.height=window.innerHeight;
+    const buf=document.createElement('canvas');
+    buf.width=W;buf.height=H;
+    drawScene(buf.getContext('2d'),W,H);
+    bgImg=buf;
+    birds=[];
+    for(let i=0;i<5;i++) birds.push(mkBird());
   }
-  resize();
-  window.addEventListener('resize',resize);
 
-  function mkp(){
+  function mkBird(){
     return {
-      x: Math.random()*W,
-      y: Math.random()*H,
-      sz: (Math.floor(Math.random()*3)+1)*2,  // 2, 4, or 6 px
-      color: COLORS[Math.floor(Math.random()*COLORS.length)],
-      speed: Math.random()*0.28+0.08,
-      drift: (Math.random()-0.5)*0.12,
-      alpha: Math.random()*0.18+0.04,
+      x:-30-Math.random()*300,
+      y:H*0.08+Math.random()*H*0.30,
+      speed:0.6+Math.random()*0.8,
+      wingPhase:Math.random()*Math.PI*2,
+      wingSpeed:0.06+Math.random()*0.03,
+      size:PX*(1+Math.random()*0.5),
     };
   }
 
-  for(let i=0;i<55;i++) particles.push(mkp());
+  buildBG();
+  window.addEventListener('resize',buildBG);
+
+  function drawBird(x,y,sz,wingUp){
+    ctx.fillStyle='#222';
+    if(wingUp){
+      ctx.fillRect(x,y,sz,sz);
+      ctx.fillRect(x-sz,y-sz,sz,sz);
+      ctx.fillRect(x-sz*2,y-sz*2,sz,sz);
+      ctx.fillRect(x+sz,y,sz,sz);
+      ctx.fillRect(x+sz*2,y-sz,sz,sz);
+      ctx.fillRect(x+sz*3,y-sz*2,sz,sz);
+    } else {
+      ctx.fillRect(x,y,sz,sz);
+      ctx.fillRect(x-sz,y+sz,sz,sz);
+      ctx.fillRect(x-sz*2,y+sz*2,sz,sz);
+      ctx.fillRect(x+sz,y,sz,sz);
+      ctx.fillRect(x+sz*2,y+sz,sz,sz);
+      ctx.fillRect(x+sz*3,y+sz*2,sz,sz);
+    }
+  }
 
   function tick(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      ctx.globalAlpha=p.alpha;
-      ctx.fillStyle=p.color;
-      ctx.fillRect(Math.round(p.x),Math.round(p.y),p.sz,p.sz);
-      p.y-=p.speed;
-      p.x+=p.drift;
-      if(p.y<-p.sz){ p.y=H+p.sz; p.x=Math.random()*W; }
-      if(p.x<-p.sz||p.x>W+p.sz){ p.x=Math.random()*W; p.y=H+p.sz; }
+    frame++;
+    if(bgImg) ctx.drawImage(bgImg,0,0);
+
+    // animate birds
+    birds.forEach(b=>{
+      b.x+=b.speed;
+      b.wingPhase+=b.wingSpeed;
+      const wingUp=Math.sin(b.wingPhase)>0;
+      const bobY=b.y+Math.sin(frame*0.02+b.wingPhase)*3;
+      drawBird(b.x,bobY,b.size,wingUp);
+      if(b.x>W+60){b.x=-40-Math.random()*200;b.y=H*0.08+Math.random()*H*0.30;}
     });
+
     ctx.globalAlpha=1;
     requestAnimationFrame(tick);
   }
